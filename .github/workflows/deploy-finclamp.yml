@@ -51,8 +51,9 @@ jobs:
           NODE_OPTIONS: "--max-old-space-size=4096"
           CI: true
         run: |
-          # Try to install missing Rollup dependency if needed
+          # Try to install missing native dependencies if needed
           npm install @rollup/rollup-linux-x64-gnu --no-save --silent || true
+          npm install lightningcss-linux-x64-gnu --no-save --silent || true
           npm run build:finclamp
 
       - name: Setup Pages
