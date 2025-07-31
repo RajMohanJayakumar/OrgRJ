@@ -1,7 +1,7 @@
 {
   "name": "prime-monorepo",
   "version": "1.0.0",
-  "description": "Monorepo containing workouts-calculator, arcade-games, engagements, and skip-danger projects",
+  "description": "Monorepo containing finclamp, arcade-games, engaged, and skips projects",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -9,26 +9,26 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=apps/workouts-calculator",
+    "dev": "npm run dev --workspace=apps/finclamp",
     "dev:all": "node scripts/dev-all.js",
-    "dev:workouts": "npm run dev --workspace=apps/workouts-calculator",
+    "dev:finclamp": "npm run dev --workspace=apps/finclamp",
     "dev:arcade": "npm run dev --workspace=apps/arcade-games",
-    "dev:engagements": "npm run dev --workspace=apps/engagements",
-    "dev:skip-danger": "npm run dev --workspace=apps/skip-danger",
+    "dev:engaged": "npm run dev --workspace=apps/engaged",
+    "dev:skips": "npm run dev --workspace=apps/skips",
     "build": "npm run build --workspaces --if-present",
-    "build:workouts": "npm run build --workspace=apps/workouts-calculator",
+    "build:finclamp": "npm run build --workspace=apps/finclamp",
     "build:arcade": "npm run build --workspace=apps/arcade-games",
-    "build:engagements": "npm run build --workspace=apps/engagements",
-    "build:skip-danger": "npm run build --workspace=apps/skip-danger",
+    "build:engaged": "npm run build --workspace=apps/engaged",
+    "build:skips": "npm run build --workspace=apps/skips",
     "test": "npm run test --workspaces --if-present",
-    "test:workouts": "npm run test --workspace=apps/workouts-calculator",
+    "test:finclamp": "npm run test --workspace=apps/finclamp",
     "test:arcade": "npm run test --workspace=apps/arcade-games",
-    "test:engagements": "npm run test --workspace=apps/engagements",
-    "test:skip-danger": "npm run test --workspace=apps/skip-danger",
+    "test:engaged": "npm run test --workspace=apps/engaged",
+    "test:skips": "npm run test --workspace=apps/skips",
     "lint": "npm run lint --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
     "install:all": "npm install",
-    "deploy:workouts": "npm run deploy --workspace=apps/workouts-calculator"
+    "deploy:finclamp": "npm run deploy --workspace=apps/finclamp"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

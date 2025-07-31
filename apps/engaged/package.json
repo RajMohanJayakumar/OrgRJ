@@ -1,8 +1,8 @@
 {
-  "name": "@prime/engagements",
+  "name": "@prime/engaged",
   "version": "1.0.0",
   "type": "module",
-  "description": "Engagements - Interactive multiplayer games with WebSocket connectivity",
+  "description": "Engaged - Interactive multiplayer games with WebSocket connectivity",
   "private": true,
   "scripts": {
     "dev": "vite",

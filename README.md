@@ -1,15 +1,15 @@
 # Prime Monorepo
 
-A monorepo containing multiple React applications and shared packages.
+A monorepo containing multiple React applications: finclamp, arcade-games, engaged, and skips.
 
 ## Projects
 
 ### Apps
 
-- **workouts-calculator** - Financial calculator suite (deployed to GitHub Pages)
+- **finclamp** - Financial calculator suite (deployed to GitHub Pages)
 - **arcade-games** - Collection of classic arcade games
-- **engagements** - Interactive multiplayer games with WebSocket connectivity
-- **skip-danger** - Multi-modal memory training game
+- **engaged** - Interactive multiplayer games with WebSocket connectivity
+- **skips** - Multi-modal memory training game
 
 ### Packages
 
@@ -30,7 +30,7 @@ npm install
 
 ### Quick Start
 
-The monorepo is now fully set up and ready to use! All four projects have been successfully converted to standalone React applications following the workouts-calculator reference structure.
+The monorepo is now fully set up and ready to use! All four projects have been successfully converted to standalone React applications following the finclamp reference structure.
 
 ### Development
 
@@ -43,10 +43,10 @@ npm run dev
 Run specific apps:
 
 ```bash
-npm run dev:workouts      # Workouts Calculator
+npm run dev:finclamp      # FinClamp
 npm run dev:arcade        # Arcade Games
-npm run dev:engagements   # Engagements
-npm run dev:skip-danger   # Skip Danger
+npm run dev:engaged       # Engaged
+npm run dev:skips         # Skips
 ```
 
 ### Building
@@ -60,10 +60,10 @@ npm run build
 Build specific apps:
 
 ```bash
-npm run build:workouts
+npm run build:finclamp
 npm run build:arcade
-npm run build:engagements
-npm run build:skip-danger
+npm run build:engaged
+npm run build:skips
 ```
 
 ### Testing
@@ -77,22 +77,22 @@ npm run test
 Run tests for specific apps:
 
 ```bash
-npm run test:workouts
+npm run test:finclamp
 npm run test:arcade
-npm run test:engagements
-npm run test:skip-danger
+npm run test:engaged
+npm run test:skips
 ```
 
 ## Deployment
 
-### GitHub Pages (Workouts Calculator)
+### GitHub Pages (FinClamp)
 
-The workouts-calculator app is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+The finclamp app is automatically deployed to GitHub Pages when changes are pushed to the main branch.
 
 Manual deployment:
 
 ```bash
-npm run deploy:workouts
+npm run deploy:finclamp
 ```
 
 ## Project Structure
@@ -100,10 +100,10 @@ npm run deploy:workouts
 ```
 prime-monorepo/
 ├── apps/
-│   ├── workouts-calculator/    # Main financial calculator app
+│   ├── finclamp/              # Main financial calculator app
 │   ├── arcade-games/          # Arcade games collection
-│   ├── engagements/           # Interactive multiplayer games
-│   └── skip-danger/           # Memory training game
+│   ├── engaged/               # Interactive multiplayer games
+│   └── skips/                 # Memory training game
 ├── packages/
 │   └── shared/                # Shared utilities and components
 ├── package.json               # Root package.json with workspaces

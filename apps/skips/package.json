@@ -1,8 +1,8 @@
 {
-  "name": "@prime/skip-danger",
+  "name": "@prime/skips",
   "version": "1.0.0",
   "type": "module",
-  "description": "Skip Danger - Multi-modal memory training game for cognitive enhancement",
+  "description": "Skips - Multi-modal memory training game for cognitive enhancement",
   "private": true,
   "scripts": {
     "dev": "vite",

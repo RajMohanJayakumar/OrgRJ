@@ -13,10 +13,10 @@ const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
 
 const apps = [
-  { name: 'workouts-calculator', port: 5173, color: '\x1b[36m' }, // Cyan
+  { name: 'finclamp', port: 5173, color: '\x1b[36m' }, // Cyan
   { name: 'arcade-games', port: 5174, color: '\x1b[33m' },        // Yellow
-  { name: 'engagements', port: 5175, color: '\x1b[35m' },         // Magenta
-  { name: 'skip-danger', port: 5176, color: '\x1b[32m' }          // Green
+  { name: 'engaged', port: 5175, color: '\x1b[35m' },         // Magenta
+  { name: 'skips', port: 5176, color: '\x1b[32m' }          // Green
 ]
 
 const reset = '\x1b[0m'
