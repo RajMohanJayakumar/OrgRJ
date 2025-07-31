@@ -1,0 +1,144 @@
+{
+  "name": "arcade-games",
+  "displayName": "Arcade Games Module",
+  "version": "1.0.0",
+  "description": "Self-contained arcade games module with classic retro games",
+  "author": "FinClamp Development Team",
+  "license": "Same as main application",
+  
+  "module": {
+    "type": "feature",
+    "category": "entertainment",
+    "standalone": true,
+    "removable": true,
+    "dependencies": {
+      "react": "^18.0.0",
+      "framer-motion": "^10.0.0"
+    }
+  },
+  
+  "routes": [
+    "/arcade",
+    "/?mode=arcade",
+    "/?arcade=true"
+  ],
+  
+  "games": [
+    {
+      "id": "snake",
+      "name": "Snake",
+      "description": "Classic snake game with growing difficulty",
+      "controls": ["Arrow Keys", "WASD"],
+      "features": ["High Scores", "Progressive Difficulty", "Sound Effects"]
+    },
+    {
+      "id": "tetris",
+      "name": "Tetris",
+      "description": "Stack falling blocks to clear lines",
+      "controls": ["Arrow Keys", "Space", "P"],
+      "features": ["Line Clearing", "Level Progression", "Pause/Resume"]
+    },
+    {
+      "id": "pong",
+      "name": "Pong",
+      "description": "Classic paddle game with AI opponent",
+      "controls": ["Arrow Keys", "WS", "Space"],
+      "features": ["AI Difficulty", "Physics Simulation", "Score Tracking"]
+    },
+    {
+      "id": "space-shooter",
+      "name": "Space Shooter",
+      "description": "Defend Earth from alien invaders",
+      "controls": ["Arrow Keys", "AD", "Space"],
+      "features": ["Wave System", "Lives System", "Particle Effects"]
+    }
+  ],
+  
+  "storage": {
+    "keys": [
+      "arcade_*",
+      "*GameHighScore",
+      "arcade_settings",
+      "arcade_analytics"
+    ],
+    "description": "Local storage for high scores, settings, and analytics"
+  },
+  
+  "files": {
+    "entry": "index.js",
+    "main": "components/ArcadeGamesModule.jsx",
+    "config": "config/arcadeConfig.js",
+    "removal": "REMOVAL_GUIDE.md",
+    "documentation": "README.md"
+  },
+  
+  "integration": {
+    "mainApp": {
+      "file": "src/App.jsx",
+      "import": "import { ArcadeGamesModule, detectArcadeRoute } from './modules/arcade-games'",
+      "usage": "Route detection and component rendering"
+    },
+    "routing": {
+      "vite": "vite.config.js",
+      "netlify": "public/_redirects",
+      "vercel": "vercel.json",
+      "apache": "public/.htaccess"
+    }
+  },
+  
+  "removal": {
+    "safe": true,
+    "impact": "none",
+    "steps": [
+      "Delete src/modules/arcade-games/ directory",
+      "Remove import from src/App.jsx",
+      "Remove route configurations",
+      "Clear localStorage (optional)"
+    ],
+    "guide": "REMOVAL_GUIDE.md"
+  },
+  
+  "features": {
+    "soundSystem": {
+      "enabled": true,
+      "api": "Web Audio API",
+      "configurable": true
+    },
+    "highScores": {
+      "enabled": true,
+      "storage": "localStorage",
+      "history": true,
+      "statistics": true
+    },
+    "responsive": {
+      "mobile": true,
+      "desktop": true,
+      "touch": true,
+      "keyboard": true
+    },
+    "animations": {
+      "library": "Framer Motion",
+      "particles": true,
+      "transitions": true,
+      "effects": true
+    }
+  },
+  
+  "seo": {
+    "indexed": false,
+    "robots": "noindex, nofollow",
+    "hidden": true,
+    "private": true
+  },
+  
+  "performance": {
+    "lazyLoading": true,
+    "codesplitting": true,
+    "fps": 60,
+    "optimized": true
+  },
+  
+  "created": "2024",
+  "lastModified": "2024",
+  "status": "stable"
+}

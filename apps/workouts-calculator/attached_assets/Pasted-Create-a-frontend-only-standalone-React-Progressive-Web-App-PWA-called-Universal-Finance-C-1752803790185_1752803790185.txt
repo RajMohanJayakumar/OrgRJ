@@ -1,0 +1,182 @@
+Create a **frontend-only, standalone React Progressive Web App (PWA)** called **"Universal Finance Calculator"**. This app must be:
+
+✅ Fully installable (PWA)  
+✅ Mobile-friendly  
+✅ Shareable via **query parameters** (for inputs and state)  
+✅ No backend required  
+✅ Uses **React + React Router + Tailwind CSS**  
+✅ Works offline using Service Workers
+
+📌 Key Functional Requirements:
+
+1. 🌐 **Include Global Financial Calculators** categorized as follows:
+
+---
+
+### 🔹 LOAN Calculators
+
+**a. EMI Calculator**
+- Input: Principal (P), Interest Rate (R%), Tenure (N months)
+- Formula:
+  - EMI = P × R × (1+R)^N / [(1+R)^N – 1]
+  - Reverse EMI: Given EMI, solve for Principal using inverse formula
+
+**b. Mortgage/Home Loan**
+- Similar to EMI with additional inputs: Down payment, Property tax, Insurance
+- Bidirectional with same EMI structure
+
+**c. Auto Loan / Personal Loan**
+- Subset of EMI logic, with shorter terms
+
+---
+
+### 🔹 SAVINGS
+
+**a. Fixed Deposit (FD)**
+- Inputs: Principal (P), Rate (R), Time (T)
+- Formula (compound interest):
+  - Maturity = P × (1 + R/n)^(n×T)
+- Reverse: Given maturity, solve for P or R
+
+**b. Recurring Deposit (RD)**
+- Formula:
+  - Maturity = P × n + P × n(n+1) × R / (2 × 12 × 100)
+- Reverse RD from maturity
+
+**c. PPF / NSC**
+- Similar compound logic with lock-in constraints
+
+---
+
+### 🔹 MUTUAL FUNDS
+
+**a. SIP Calculator**
+- Formula:
+  - Future Value = P × [(1 + r)^n – 1] × (1 + r) / r
+- Reverse SIP: Given FV, find P or n
+
+**b. SWP / ELSS / 401(k)**
+- Similar variants using withdrawal or tax adjustments
+
+---
+
+### 🔹 TAX
+
+**a. Income Tax (India, US, UK)**
+- Slab-based calculation:
+  - Compute based on slabs, deductions, exemptions
+- Reverse: Show how much salary generates a tax of X
+
+**b. Capital Gains**
+- Inputs: Buy Price, Sell Price, Duration
+- Apply short-term/long-term tax rules per country
+
+---
+
+### 🔹 RETIREMENT
+
+**a. NPS / EPF / Roth IRA**
+- Compound logic with monthly contribution + interest
+- Bidirectional where user can plan either amount to invest or expected maturity
+
+---
+
+### 🔹 INSURANCE
+
+**a. Term Insurance Premium**
+- Input: Age, Sum Assured, Tenure
+- Use mock logic (actuarial assumptions)
+
+**b. ULIP**
+- Hybrid investment + insurance: use split formula
+
+---
+
+### 🔹 BONDS
+
+**a. Sovereign Gold Bond / Govt Bonds**
+- Inputs: Investment, Rate, Tenure
+- Include yearly payout calculation
+
+---
+
+### 🔹 GENERAL TOOLS
+
+**a. CAGR**
+- CAGR = (Ending Value / Beginning Value)^(1/n) – 1
+
+**b. ROI**
+- ROI = (Net Profit / Cost of Investment) × 100
+
+**c. Inflation-adjusted return**
+- Real Return = [(1 + Nominal) / (1 + Inflation)] – 1
+
+**d. Goal Planning**
+- Inputs: Target, Duration, Expected Return → compute monthly/yearly investment needed
+
+---
+
+### 🔹 FOREX / INTERNATIONAL
+
+**a. Currency Converter**
+- Real-time rates via local JSON (mock) or API when connected
+
+**b. Inflation Index (country-wise)**  
+**c. Global Tax Comparison Tool**
+
+---
+
+📂 Query Param Features:
+
+- Each calculator page must **serialize all inputs to query params**  
+- On load, parse and repopulate the form fields from URL  
+- Generate shareable links that recreate calculations  
+- Support editing the saved calculation and updating the link  
+- **No login or server** – all in frontend
+
+---
+
+🆚 Comparison Feature:
+
+- Allow users to **"Add to Compare"**  
+- Show tabular side-by-side view of selected calculators  
+- Compare across different inputs, countries, scenarios
+
+---
+
+💾 Save/Load:
+
+- **Save/Load via URL only (not behind a paywall)**  
+- Premium-only features could include:
+  - PDF Export
+  - Dark Mode
+  - LocalStorage-based history
+  - Print-friendly themes
+
+---
+
+🎨 UI/UX Notes:
+
+- Use **cards**, **tabs**, and **category switcher** layout  
+- Include tooltips (ℹ️) for inputs  
+- Add country dropdown + flag emoji  
+- Responsive layout for mobile & installable via PWA manifest  
+- Use icons for calculators, group by type and region
+
+---
+
+🛠️ Tech Stack:
+
+- React (latest)
+- React Router DOM for query param routing
+- Tailwind CSS
+- Workbox or CRA-PWA for offline support
+- All data client-side (no DB, no API calls unless explicitly enabled)
+
+---
+
+📝 Extras:
+
+- Allow country filter, calculator type filter, and free text search  
+- Let users **suggest new calculators** (store in localStorage or prepare JSON blob for future backend)
+

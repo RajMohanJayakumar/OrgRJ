@@ -1,0 +1,33 @@
+{
+  "name": "@prime/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Shared utilities and components for Prime monorepo",
+  "private": true,
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./utils": "./src/utils/index.js",
+    "./components": "./src/components/index.js",
+    "./hooks": "./src/hooks/index.js"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "clean": "rm -rf node_modules"
+  },
+  "keywords": ["shared", "utilities", "components", "monorepo"],
+  "author": "FinClamp Development Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^18.2.37",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- FinClamp Favicon - Multiple formats for browser compatibility -->
+    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-tab.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-monochrome.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-monochrome.svg" />
+    <link rel="icon" sizes="192x192" href="/android-chrome-192x192.svg" />
+    <link rel="icon" sizes="512x512" href="/android-chrome-512x512.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#667eea" />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Free online financial calculators for loans, investments, savings, taxes, and retirement planning. Calculate EMI, SIP, FD, PPF, tax liability and more with FinClamp."
+    />
+    <meta
+      name="keywords"
+      content="financial calculator, EMI calculator, SIP calculator, tax calculator, loan calculator, investment calculator, retirement planning, FD calculator, PPF calculator"
+    />
+    <meta name="author" content="FinClamp" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://finclamp.com/" />
+
+    <!-- Open Graph Tags -->
+    <meta
+      property="og:title"
+      content="FinClamp - Complete Financial Calculator Suite | Free Online Calculators"
+    />
+    <meta
+      property="og:description"
+      content="Free online financial calculators for loans, investments, savings, taxes, and retirement planning. Calculate EMI, SIP, FD, PPF, tax liability and more."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://finclamp.com/" />
+    <meta property="og:site_name" content="FinClamp" />
+    <meta property="og:image" content="https://finclamp.com/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="FinClamp - Financial Calculator Suite"
+    />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="FinClamp - Complete Financial Calculator Suite"
+    />
+    <meta
+      name="twitter:description"
+      content="Free online financial calculators for all your financial planning needs."
+    />
+    <meta
+      name="twitter:image"
+      content="https://finclamp.com/twitter-card.svg"
+    />
+    <meta name="twitter:site" content="@FinClamp" />
+    <meta name="twitter:creator" content="@FinClamp" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="google-adsense-account" content="ca-pub-9534639850710383" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-7TK6FEY9RN"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-7TK6FEY9RN");
+    </script>
+
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534639850710383"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FinClamp",
+        "description": "Complete financial calculator suite for all your financial planning needs",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "url": "https://finclamp.com",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "EMI Calculator",
+          "SIP Calculator",
+          "Tax Calculator",
+          "FD Calculator",
+          "PPF Calculator",
+          "Loan Calculator",
+          "Investment Calculator",
+          "Retirement Planning Calculator"
+        ],
+        "publisher": {
+          "@type": "Organization",
+          "name": "FinClamp",
+          "url": "https://finclamp.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://finclamp.com/finclamp-logo.svg"
+          }
+        },
+        "dateModified": "2024-01-22",
+        "inLanguage": "en-US"
+      }
+    </script>
+
+    <title>
+      FinClamp - Complete Financial Calculator Suite | Free Online Calculators
+    </title>
+
+    <!-- Beautiful PWA Loader Styles -->
+    <style>
+      .pwa-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+      }
+
+      .pwa-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader-container {
+        text-align: center;
+        position: relative;
+        max-width: 400px;
+        padding: 2rem;
+      }
+
+      /* Animated Logo */
+      .logo-animation {
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      .animated-logo {
+        animation: logoFloat 3s ease-in-out infinite;
+        filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+      }
+
+      .top-arc {
+        stroke-dasharray: 75;
+        stroke-dashoffset: 75;
+        animation: drawArc 2s ease-in-out infinite alternate;
+      }
+
+      .bottom-arc {
+        stroke-dasharray: 75;
+        stroke-dashoffset: 75;
+        animation: drawArc 2s ease-in-out infinite alternate-reverse;
+      }
+
+      .center-pulse {
+        animation: pulse 1.5s ease-in-out infinite;
+        transform-origin: center;
+      }
+
+      /* Brand Text */
+      .brand-text {
+        margin-bottom: 3rem;
+      }
+
+      .brand-name {
+        font-size: 3rem;
+        font-weight: 900;
+        background: linear-gradient(45deg, #fff, #f0f9ff, #fff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin: 0;
+        text-shadow: 0 0 30px rgba(255,255,255,0.5);
+        animation: textShimmer 2s ease-in-out infinite;
+      }
+
+      .brand-tagline {
+        color: rgba(255,255,255,0.9);
+        font-size: 1.2rem;
+        margin: 0.5rem 0 0 0;
+        font-weight: 500;
+        animation: fadeInUp 1s ease-out 0.5s both;
+      }
+
+      /* Progress Bar */
+      .progress-container {
+        margin-bottom: 2rem;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4ADE80, #06B6D4, #3B82F6);
+        border-radius: 10px;
+        width: 0%;
+        animation: progressFill 3s ease-in-out infinite;
+        box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+      }
+
+      .progress-text {
+        color: rgba(255,255,255,0.8);
+        font-size: 0.9rem;
+        animation: fadeInUp 1s ease-out 1s both;
+      }
+
+      /* Floating Elements */
+      .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .float-element {
+        position: absolute;
+        font-size: 1.5rem;
+        animation: float 4s ease-in-out infinite;
+        animation-delay: var(--delay);
+        opacity: 0.7;
+      }
+
+      .float-element:nth-child(1) { top: 10%; left: 10%; }
+      .float-element:nth-child(2) { top: 20%; right: 15%; }
+      .float-element:nth-child(3) { bottom: 30%; left: 20%; }
+      .float-element:nth-child(4) { bottom: 20%; right: 10%; }
+      .float-element:nth-child(5) { top: 50%; left: 5%; }
+
+      /* Animations */
+      @keyframes logoFloat {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(2deg); }
+      }
+
+      @keyframes drawArc {
+        0% { stroke-dashoffset: 75; }
+        100% { stroke-dashoffset: 0; }
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.5); opacity: 0.7; }
+      }
+
+      @keyframes textShimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes progressFill {
+        0% { width: 0%; }
+        50% { width: 70%; }
+        100% { width: 100%; }
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.7;
+        }
+        25% {
+          transform: translateY(-20px) rotate(5deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-10px) rotate(-3deg);
+          opacity: 0.8;
+        }
+        75% {
+          transform: translateY(-15px) rotate(2deg);
+          opacity: 0.9;
+        }
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .brand-name {
+          font-size: 2.5rem;
+        }
+
+        .brand-tagline {
+          font-size: 1rem;
+        }
+
+        .animated-logo {
+          width: 60px;
+          height: 60px;
+        }
+
+        .float-element {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Beautiful PWA Loader -->
+    <div id="pwa-loader" class="pwa-loader">
+      <div class="loader-container">
+        <!-- Animated FinClamp Logo -->
+        <div class="logo-animation">
+          <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" class="animated-logo">
+            <defs>
+              <linearGradient id="topGradientLoader" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#4ADE80;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="bottomGradientLoader" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Top arc -->
+            <path d="M 16 40 A 24 24 0 0 1 64 40"
+                  fill="none"
+                  stroke="url(#topGradientLoader)"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  class="top-arc"/>
+            <!-- Bottom arc -->
+            <path d="M 64 40 A 24 24 0 0 1 16 40"
+                  fill="none"
+                  stroke="url(#bottomGradientLoader)"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  class="bottom-arc"/>
+            <!-- Center pulse -->
+            <circle cx="40" cy="40" r="4" fill="#8B5CF6" class="center-pulse"/>
+          </svg>
+        </div>
+
+        <!-- Brand Text -->
+        <div class="brand-text">
+          <h1 class="brand-name">FinClamp</h1>
+          <p class="brand-tagline">Smart Financial Planning</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="progress-text">Loading your financial tools...</div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+          <div class="float-element" style="--delay: 0s;">💰</div>
+          <div class="float-element" style="--delay: 0.5s;">📊</div>
+          <div class="float-element" style="--delay: 1s;">🏦</div>
+          <div class="float-element" style="--delay: 1.5s;">📈</div>
+          <div class="float-element" style="--delay: 2s;">🧮</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="root"></div>
+
+    <!-- GitHub Pages SPA redirect handler -->
+    <script type="text/javascript">
+      // Check if we're being redirected from 404.html
+      (function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var redirectPath = urlParams.get("p");
+
+        if (redirectPath) {
+          // Remove the 'p' parameter and redirect to the original path
+          window.history.replaceState(
+            null,
+            null,
+            decodeURIComponent(redirectPath)
+          );
+        }
+      })();
+    </script>
+
+    <script type="module" src="/src/index.jsx"></script>
+
+    <!-- PWA Loader Control Script -->
+    <script>
+      // Beautiful PWA Loader Control
+      document.addEventListener('DOMContentLoaded', function() {
+        const loader = document.getElementById('pwa-loader');
+        const progressFill = document.querySelector('.progress-fill');
+        const progressText = document.querySelector('.progress-text');
+
+        // Loading messages
+        const loadingMessages = [
+          'Loading your financial tools...',
+          'Preparing calculators...',
+          'Setting up your workspace...',
+          'Almost ready...',
+          'Welcome to FinClamp!'
+        ];
+
+        let messageIndex = 0;
+        let progress = 0;
+
+        // Update progress and messages
+        const updateProgress = () => {
+          progress += Math.random() * 15 + 5; // Random increment between 5-20
+
+          if (progress > 100) progress = 100;
+
+          // Update progress bar
+          if (progressFill) {
+            progressFill.style.width = progress + '%';
+          }
+
+          // Update message
+          if (progressText && messageIndex < loadingMessages.length) {
+            progressText.textContent = loadingMessages[messageIndex];
+            messageIndex++;
+          }
+
+          // Continue until complete
+          if (progress < 100) {
+            setTimeout(updateProgress, 300 + Math.random() * 500);
+          } else {
+            // Hide loader when complete
+            setTimeout(hideLoader, 800);
+          }
+        };
+
+        // Hide loader function
+        const hideLoader = () => {
+          if (loader) {
+            loader.classList.add('hidden');
+            // Remove from DOM after transition
+            setTimeout(() => {
+              if (loader.parentNode) {
+                loader.parentNode.removeChild(loader);
+              }
+            }, 500);
+          }
+        };
+
+        // Start the loading sequence
+        setTimeout(updateProgress, 200);
+
+        // Hide HTML loader quickly to let React loader take over
+        setTimeout(hideLoader, 1500);
+
+        // Hide loader when React app is ready
+        window.addEventListener('load', () => {
+          setTimeout(hideLoader, 500);
+        });
+
+        // PWA specific: Hide loader when app is installed
+        window.addEventListener('appinstalled', () => {
+          setTimeout(hideLoader, 300);
+        });
+
+        // Service Worker ready
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.ready.then(() => {
+            setTimeout(hideLoader, 800);
+          });
+        }
+      });
+
+      // Prevent loader from showing on subsequent visits (optional)
+      if (sessionStorage.getItem('finclamp-loaded')) {
+        const loader = document.getElementById('pwa-loader');
+        if (loader) {
+          loader.style.display = 'none';
+        }
+      } else {
+        sessionStorage.setItem('finclamp-loaded', 'true');
+      }
+    </script>
+  </body>
+</html>

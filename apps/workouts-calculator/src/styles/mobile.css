@@ -1,0 +1,991 @@
+/* Mobile-first responsive improvements */
+
+/* Global button cursor pointer */
+button {
+  cursor: pointer;
+}
+
+/* Full width mobile layout */
+@media (max-width: 768px) {
+  .mobile-full-width {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+  }
+
+  /* Header mobile improvements */
+  header {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Main content full width on mobile */
+  .main-content-mobile {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Floating action buttons mobile positioning */
+  .floating-actions-mobile {
+    bottom: 1rem !important;
+    right: 1rem !important;
+  }
+
+  .floating-actions-mobile button {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  .floating-actions-mobile button span {
+    font-size: 1rem !important;
+  }
+}
+
+/* Base mobile styles */
+@media (max-width: 640px) {
+  /* Ensure proper touch targets */
+  button,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Improve text readability */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Better spacing for mobile - nearly full width */
+  .container {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  /* Calculator specific improvements - nearly full width */
+  .calculator-container {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    max-width: calc(100vw - 0.5rem);
+  }
+
+  /* Calculator main layout - nearly full width */
+  .calculator-main-container {
+    max-width: calc(100vw - 0.5rem) !important;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Reduce excessive padding in cards */
+  .calculator-card {
+    padding: 0.75rem;
+  }
+
+  /* Better input spacing */
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  /* Force nearly full width for all calculator elements */
+  .calculator-main-container,
+  .calculator-main-container > *,
+  .calculator-main-container .bg-white {
+    max-width: calc(100vw - 0.5rem) !important;
+  }
+
+  /* Ensure input sections use full available width */
+  .calculator-main-container .bg-white.rounded-xl,
+  .calculator-main-container .bg-white.rounded-lg {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Grid containers should use full width */
+  .calculator-main-container .grid {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Override any max-width constraints on mobile for calculators */
+  [class*="calculator"] {
+    max-width: calc(100vw - 0.5rem) !important;
+  }
+
+  /* Ensure motion divs in calculators use full width */
+  .calculator-main-container .motion-div,
+  .calculator-main-container [class*="motion"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Override Tailwind max-width utilities on mobile for calculators */
+  .calculator-main-container .max-w-7xl,
+  .calculator-main-container .max-w-6xl,
+  .calculator-main-container .max-w-5xl,
+  .calculator-main-container .max-w-4xl,
+  .calculator-main-container .max-w-3xl,
+  .calculator-main-container .max-w-2xl,
+  .calculator-main-container .max-w-xl,
+  .calculator-main-container .max-w-lg,
+  .calculator-main-container .max-w-md,
+  .calculator-main-container .max-w-sm {
+    max-width: calc(100vw - 0.5rem) !important;
+  }
+
+  /* Global override for all calculator containers on mobile */
+  [class*="max-w-"]:has([class*="calculator"]),
+  [class*="max-w-"] > [class*="calculator"],
+  div[class*="max-w-7xl"],
+  div[class*="max-w-6xl"],
+  div[class*="max-w-5xl"],
+  div[class*="max-w-4xl"] {
+    max-width: calc(100vw - 0.5rem) !important;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Ensure all calculator pages use nearly full width */
+  body:has([class*="Calculator"]) div[class*="max-w-"],
+  body:has([class*="calculator"]) div[class*="max-w-"] {
+    max-width: calc(100vw - 0.5rem) !important;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Target calculator route pages specifically */
+  [data-calculator="true"] div[class*="max-w-"],
+  [data-page="calculator"] div[class*="max-w-"],
+  .calculator-page div[class*="max-w-"] {
+    max-width: calc(100vw - 0.5rem) !important;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Force all main containers in calculator components to use nearly full width */
+  div[class*="max-w-7xl mx-auto"],
+  div[class*="max-w-6xl mx-auto"],
+  div[class*="max-w-5xl mx-auto"],
+  div[class*="max-w-4xl mx-auto"] {
+    max-width: calc(100vw - 0.5rem) !important;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Enhanced input styling for mobile */
+  .input-group input,
+  .input-group select {
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 2px solid #e5e7eb;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .input-group input:focus,
+  .input-group select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+  }
+
+  /* Input labels */
+  .input-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Button groups for mobile */
+  .button-group-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .button-group-mobile button {
+    flex: 1;
+    min-width: calc(50% - 0.25rem);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    border: 2px solid #e5e7eb;
+    background: white;
+    color: #374151;
+    transition: all 0.2s ease;
+  }
+
+  .button-group-mobile button:hover,
+  .button-group-mobile button.active {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  /* Card layouts for mobile */
+  .mobile-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+  }
+
+  .mobile-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .mobile-card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  /* Grid layouts for mobile */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .mobile-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Results section mobile styling */
+  .mobile-results {
+    background: #f8fafc;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .mobile-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .mobile-result-item:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-result-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .mobile-result-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* Chart containers for mobile */
+  .mobile-chart-container {
+    height: 250px;
+    margin: 1rem 0;
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Action buttons for mobile */
+  .mobile-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .mobile-action-button {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    border: none;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-action-button.primary {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .mobile-action-button.primary:hover {
+    background: #2563eb;
+  }
+
+  .mobile-action-button.secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+  }
+
+  .mobile-action-button.secondary:hover {
+    background: #e2e8f0;
+  }
+
+  /* Improve form inputs */
+  input[type="number"],
+  input[type="text"],
+  input[type="email"],
+  select {
+    font-size: 16px !important; /* Prevents zoom */
+    padding: 12px 16px;
+    border-radius: 8px;
+  }
+
+  /* Better button sizing */
+  .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  /* Improve card layouts */
+  .card {
+    margin-bottom: 1rem;
+    border-radius: 12px;
+  }
+
+  /* Better modal sizing */
+  .modal {
+    margin: 0.5rem;
+    max-height: 95vh;
+  }
+
+  /* Improve table responsiveness */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Better chart containers */
+  .chart-container {
+    height: 250px !important;
+    margin-bottom: 1rem;
+  }
+
+  /* Improve floating elements */
+  .floating-button {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 12px;
+  }
+
+  /* Better grid layouts */
+  .grid-mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Improve text sizing */
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  h4 {
+    font-size: 1.125rem;
+  }
+
+  /* Better spacing */
+  .space-y-mobile > * + * {
+    margin-top: 1rem;
+  }
+
+  /* Improve scrollable areas */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* NumberInput mobile enhancements */
+  .number-input-mobile {
+    position: relative;
+  }
+
+  .number-input-mobile input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    padding-right: 4rem;
+    font-size: 16px;
+    font-weight: 500;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    background: white;
+    transition: all 0.2s ease;
+  }
+
+  .number-input-mobile input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+  }
+
+  .number-input-mobile .controls {
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .number-input-mobile .control-button {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border: none;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    cursor: pointer;
+  }
+
+  .number-input-mobile .control-button:hover {
+    background: #e2e8f0;
+    color: #475569;
+  }
+
+  .number-input-mobile .control-button:active {
+    background: #cbd5e1;
+    transform: scale(0.95);
+  }
+
+  .number-input-mobile .control-button:first-child {
+    border-right: 1px solid #e2e8f0;
+  }
+
+  /* Dropdown mobile styling */
+  .dropdown-mobile {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-mobile select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    padding-right: 2.5rem;
+    font-size: 16px;
+    font-weight: 500;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    background: white;
+    color: #374151;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-mobile select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+  }
+
+  /* Modal and overlay mobile styling */
+  .mobile-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .mobile-modal {
+    background: white;
+    border-radius: 1rem 1rem 0 0;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-modal.open {
+    transform: translateY(0);
+  }
+
+  .mobile-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .mobile-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .mobile-modal-close {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 0.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-modal-close:hover {
+    background: #e5e7eb;
+    color: #374151;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Tablet-specific improvements */
+  .grid-tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+
+  /* Better button groups */
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1025px) {
+  .grid-desktop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .chart-container {
+    height: 350px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Crisp borders and shadows */
+  .card,
+  .button,
+  .input {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  /* Add dark mode styles if needed */
+  .dark-mode {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-break {
+    page-break-before: always;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  .container {
+    max-width: none;
+    padding: 0;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-contrast: high) {
+  /* High contrast mode */
+  .button {
+    border: 2px solid currentColor;
+  }
+
+  .input {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Focus improvements */
+.focus-visible:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Better touch targets */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better text selection */
+::selection {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Error states */
+.error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Success states */
+.success {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Utility classes for mobile */
+.mobile-hidden {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .mobile-hidden {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+}
+
+.mobile-only {
+  display: block;
+}
+
+/* Mobile-specific layout utilities */
+.mobile-container {
+  padding: 1rem;
+  max-width: 100%;
+}
+
+.mobile-section {
+  margin-bottom: 1.5rem;
+}
+
+.mobile-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile typography utilities */
+.mobile-heading-1 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.mobile-heading-2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #111827;
+}
+
+.mobile-heading-3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #374151;
+}
+
+.mobile-body {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.mobile-caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #9ca3af;
+}
+
+/* Mobile spacing utilities */
+.mobile-space-y-1 > * + * { margin-top: 0.25rem; }
+.mobile-space-y-2 > * + * { margin-top: 0.5rem; }
+.mobile-space-y-3 > * + * { margin-top: 0.75rem; }
+.mobile-space-y-4 > * + * { margin-top: 1rem; }
+.mobile-space-y-6 > * + * { margin-top: 1.5rem; }
+.mobile-space-y-8 > * + * { margin-top: 2rem; }
+
+.mobile-space-x-1 > * + * { margin-left: 0.25rem; }
+.mobile-space-x-2 > * + * { margin-left: 0.5rem; }
+.mobile-space-x-3 > * + * { margin-left: 0.75rem; }
+.mobile-space-x-4 > * + * { margin-left: 1rem; }
+
+/* Mobile padding utilities */
+.mobile-p-1 { padding: 0.25rem; }
+.mobile-p-2 { padding: 0.5rem; }
+.mobile-p-3 { padding: 0.75rem; }
+.mobile-p-4 { padding: 1rem; }
+.mobile-p-6 { padding: 1.5rem; }
+
+.mobile-px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
+.mobile-px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.mobile-px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.mobile-px-4 { padding-left: 1rem; padding-right: 1rem; }
+
+.mobile-py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.mobile-py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.mobile-py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.mobile-py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+
+/* Mobile margin utilities */
+.mobile-m-1 { margin: 0.25rem; }
+.mobile-m-2 { margin: 0.5rem; }
+.mobile-m-3 { margin: 0.75rem; }
+.mobile-m-4 { margin: 1rem; }
+
+.mobile-mx-1 { margin-left: 0.25rem; margin-right: 0.25rem; }
+.mobile-mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
+.mobile-mx-3 { margin-left: 0.75rem; margin-right: 0.75rem; }
+.mobile-mx-4 { margin-left: 1rem; margin-right: 1rem; }
+
+.mobile-my-1 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+.mobile-my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+.mobile-my-3 { margin-top: 0.75rem; margin-bottom: 0.75rem; }
+.mobile-my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+
+/* Mobile flexbox utilities */
+.mobile-flex { display: flex; }
+.mobile-flex-col { flex-direction: column; }
+.mobile-flex-row { flex-direction: row; }
+.mobile-flex-wrap { flex-wrap: wrap; }
+.mobile-items-center { align-items: center; }
+.mobile-items-start { align-items: flex-start; }
+.mobile-items-end { align-items: flex-end; }
+.mobile-justify-center { justify-content: center; }
+.mobile-justify-between { justify-content: space-between; }
+.mobile-justify-start { justify-content: flex-start; }
+.mobile-justify-end { justify-content: flex-end; }
+
+/* Mobile width utilities */
+.mobile-w-full { width: 100%; }
+.mobile-w-1\/2 { width: 50%; }
+.mobile-w-1\/3 { width: 33.333333%; }
+.mobile-w-2\/3 { width: 66.666667%; }
+.mobile-w-1\/4 { width: 25%; }
+.mobile-w-3\/4 { width: 75%; }
+
+/* Mobile height utilities */
+.mobile-h-auto { height: auto; }
+.mobile-h-full { height: 100%; }
+.mobile-h-screen { height: 100vh; }
+
+/* Mobile border radius utilities */
+.mobile-rounded-sm { border-radius: 0.125rem; }
+.mobile-rounded { border-radius: 0.25rem; }
+.mobile-rounded-md { border-radius: 0.375rem; }
+.mobile-rounded-lg { border-radius: 0.5rem; }
+.mobile-rounded-xl { border-radius: 0.75rem; }
+.mobile-rounded-2xl { border-radius: 1rem; }
+.mobile-rounded-full { border-radius: 9999px; }
+
+/* Better safe areas for mobile devices */
+@supports (padding: max(0px)) {
+  .safe-area-inset {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improved scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Better form validation */
+input:invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+input:valid {
+  border-color: #10b981;
+}
+
+/* Improved animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Better card hover effects */
+.card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved button states */
+.button-primary {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  transition: all 0.2s ease-in-out;
+}
+
+.button-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.button-primary:active {
+  transform: translateY(0);
+}

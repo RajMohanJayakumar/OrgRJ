@@ -1,0 +1,73 @@
+# Test ignore file - Files and directories that don't need test coverage
+
+# Configuration files
+postcss.config.js
+tailwind.config.js
+vite.config.js
+*.config.js
+*.config.ts
+*.config.cjs
+*.config.mjs
+
+# Build and distribution
+dist/
+build/
+coverage/
+html/
+public/
+node_modules/
+
+# Documentation and markdown
+*.md
+*.txt
+README*
+CHANGELOG*
+LICENSE*
+
+# Service worker and PWA
+sw.js
+manifest.json
+
+# Static assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.webp
+
+# Environment and IDE
+.env*
+.vscode/
+.idea/
+*.log
+
+# Scripts and utilities
+scripts/
+src/scripts/
+
+# Test files themselves
+**/*.test.{js,jsx,ts,tsx}
+**/*.spec.{js,jsx,ts,tsx}
+src/test/
+
+# Package files
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# TypeScript declaration files
+*.d.ts
+
+# HTML files
+*.html
+
+# JSON data files (non-config)
+src/data/*.json
+
+# Temporary and cache files
+.cache/
+.temp/
+tmp/

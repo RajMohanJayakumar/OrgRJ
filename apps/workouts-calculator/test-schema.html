@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schema Markup Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .schema-container {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .schema-json {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .test-button {
+            background: #007cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .test-button:hover {
+            background: #005a87;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSON-LD Schema Markup Test</h1>
+    
+    <div class="info result">
+        <strong>Instructions:</strong>
+        <ol>
+            <li>Open the FinClamp calculator page in another tab</li>
+            <li>Navigate to any calculator (e.g., EMI Calculator)</li>
+            <li>Click "Extract Schema" to get the JSON-LD data from that page</li>
+            <li>Use the validation buttons to test the schema</li>
+        </ol>
+    </div>
+
+    <div>
+        <button class="test-button" onclick="extractSchema()">Extract Schema from Calculator Page</button>
+        <button class="test-button" onclick="validateSchema()">Validate Schema</button>
+        <button class="test-button" onclick="testRichResults()">Test Rich Results</button>
+        <button class="test-button" onclick="generateSampleSchema()">Generate Sample Schema</button>
+    </div>
+
+    <div id="results"></div>
+
+    <div class="schema-container">
+        <h3>Extracted JSON-LD Schema:</h3>
+        <div id="schema-output" class="schema-json">
+            Click "Extract Schema" to see the JSON-LD data from the calculator page.
+        </div>
+    </div>
+
+    <script>
+        function showResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `result ${type}`;
+            resultDiv.innerHTML = message;
+            resultsDiv.appendChild(resultDiv);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (resultDiv.parentNode) {
+                    resultDiv.parentNode.removeChild(resultDiv);
+                }
+            }, 5000);
+        }
+
+        function extractSchema() {
+            // This would need to be run in the context of the calculator page
+            // For now, we'll show instructions
+            showResult(`
+                <strong>To extract schema:</strong><br>
+                1. Open browser developer tools (F12)<br>
+                2. Go to the calculator page<br>
+                3. Run this in console:<br>
+                <code>
+                const schemas = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));<br>
+                schemas.forEach((script, index) => {<br>
+                &nbsp;&nbsp;console.log(\`Schema \${index + 1}:\`, JSON.parse(script.textContent));<br>
+                });
+                </code>
+            `, 'info');
+        }
+
+        function validateSchema() {
+            const schemaText = document.getElementById('schema-output').textContent;
+            
+            if (schemaText === 'Click "Extract Schema" to see the JSON-LD data from the calculator page.') {
+                showResult('Please extract schema first!', 'error');
+                return;
+            }
+
+            try {
+                const schema = JSON.parse(schemaText);
+                
+                // Basic validation
+                const errors = [];
+                const warnings = [];
+                
+                // Required fields for WebApplication
+                if (!schema['@context']) errors.push('Missing @context');
+                if (!schema['@type']) errors.push('Missing @type');
+                if (!schema.name) errors.push('Missing name');
+                if (!schema.description) errors.push('Missing description');
+                if (!schema.url) errors.push('Missing url');
+                
+                // Check for recommended fields
+                if (!schema.applicationCategory) warnings.push('Missing applicationCategory');
+                if (!schema.offers) warnings.push('Missing offers');
+                if (!schema.publisher) warnings.push('Missing publisher');
+                
+                if (errors.length === 0) {
+                    showResult(`
+                        <strong>✅ Schema validation passed!</strong><br>
+                        ${warnings.length > 0 ? `<br><strong>Warnings:</strong><br>• ${warnings.join('<br>• ')}` : ''}
+                    `, 'success');
+                } else {
+                    showResult(`
+                        <strong>❌ Schema validation failed!</strong><br>
+                        <strong>Errors:</strong><br>• ${errors.join('<br>• ')}<br>
+                        ${warnings.length > 0 ? `<br><strong>Warnings:</strong><br>• ${warnings.join('<br>• ')}` : ''}
+                    `, 'error');
+                }
+            } catch (e) {
+                showResult(`❌ Invalid JSON: ${e.message}`, 'error');
+            }
+        }
+
+        function testRichResults() {
+            const currentUrl = window.location.href.replace('test-schema.html', 'calculators?in=emi');
+            const testUrl = `https://search.google.com/test/rich-results?url=${encodeURIComponent(currentUrl)}`;
+            
+            showResult(`
+                <strong>Testing Rich Results:</strong><br>
+                Opening Google's Rich Results Test...<br>
+                <a href="${testUrl}" target="_blank">Click here if it doesn't open automatically</a>
+            `, 'info');
+            
+            window.open(testUrl, '_blank');
+        }
+
+        function generateSampleSchema() {
+            const sampleSchema = {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "EMI Calculator",
+                "description": "Calculate your loan EMI with our free EMI calculator. Get detailed amortization schedule, total interest, and compare different loan options.",
+                "url": "https://finclamp.com/calculators?in=emi",
+                "applicationCategory": "FinanceApplication",
+                "applicationSubCategory": "Loan Calculator",
+                "operatingSystem": "Any",
+                "browserRequirements": "Requires JavaScript. Requires HTML5.",
+                "softwareVersion": "1.0",
+                "featureList": [
+                    "Calculate monthly EMI payments",
+                    "Generate detailed amortization schedule",
+                    "Compare different loan scenarios",
+                    "Calculate total interest payable",
+                    "Loan tenure optimization"
+                ],
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0.00",
+                    "priceCurrency": "INR",
+                    "availability": "https://schema.org/InStock"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "FinClamp",
+                    "url": "https://finclamp.com",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://finclamp.com/favicon.svg",
+                        "width": 512,
+                        "height": 512
+                    }
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.8",
+                    "ratingCount": "1250",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                },
+                "mainEntity": {
+                    "@type": "Calculator",
+                    "name": "EMI Calculator",
+                    "description": "Calculate Equated Monthly Installment (EMI) for loans with detailed amortization schedule"
+                }
+            };
+
+            document.getElementById('schema-output').textContent = JSON.stringify(sampleSchema, null, 2);
+            showResult('✅ Sample schema generated! You can now validate it.', 'success');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+{
+  "timestamp": "2025-07-29T17:41:37.267Z",
+  "summary": {
+    "totalCalculators": 35,
+    "calculatorsWithPDF": 35,
+    "calculatorsWithComprehensiveData": 5,
+    "calculatorsWithBasicData": 30,
+    "calculatorsWithoutPDF": 0,
+    "qualityScore": 14.3
+  },
+  "comprehensive": [
+    {
+      "file": "CommuteCostCalculator.jsx",
+      "inputFields": 14,
+      "resultFields": 11,
+      "features": {
+        "formatCurrency": true,
+        "calculatedFields": true,
+        "conditionalLogic": true
+      }
+    },
+    {
+      "file": "DailySpendingCalculator.jsx",
+      "inputFields": 10,
+      "resultFields": 12,
+      "features": {
+        "formatCurrency": true,
+        "calculatedFields": false,
+        "conditionalLogic": true
+      }
+    },
+    {
+      "file": "GratuityCalculator.jsx",
+      "inputFields": 9,
+      "resultFields": 11,
+      "features": {
+        "formatCurrency": true,
+        "calculatedFields": true,
+        "conditionalLogic": true
+      }
+    },
+    {
+      "file": "NPSCalculator.jsx",
+      "inputFields": 6,
+      "resultFields": 9,
+      "features": {
+        "formatCurrency": true,
+        "calculatedFields": true,
+        "conditionalLogic": false
+      }
+    },
+    {
+      "file": "TaxCalculator.jsx",
+      "inputFields": 9,
+      "resultFields": 13,
+      "features": {
+        "formatCurrency": true,
+        "calculatedFields": true,
+        "conditionalLogic": true
+      }
+    }
+  ],
+  "basic": [
+    {
+      "file": "BillSplitCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "BudgetPlannerCalculator.jsx",
+      "inputFields": 4,
+      "resultFields": 14,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "CAGRCalculator.jsx",
+      "inputFields": 10,
+      "resultFields": 1,
+      "issues": [
+        "Few result fields"
+      ]
+    },
+    {
+      "file": "CompoundInterestCalculator.jsx",
+      "inputFields": 2,
+      "resultFields": 5,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "DailyInterestCalculator.jsx",
+      "inputFields": 2,
+      "resultFields": 6,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "DiscountCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "EMICalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Few input fields",
+        "Few result fields",
+        "No dynamic calculations"
+      ]
+    },
+    {
+      "file": "EPFCalculator.jsx",
+      "inputFields": 8,
+      "resultFields": 9,
+      "issues": [
+        "No dynamic calculations"
+      ]
+    },
+    {
+      "file": "FDCalculator.jsx",
+      "inputFields": 2,
+      "resultFields": 11,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "FuelCostCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "GroceryBudgetCalculator.jsx",
+      "inputFields": 1,
+      "resultFields": 10,
+      "issues": [
+        "Few input fields",
+        "No dynamic calculations"
+      ]
+    },
+    {
+      "file": "HabitCostCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "InflationCalculator.jsx",
+      "inputFields": 2,
+      "resultFields": 9,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "MonthlyExpenseCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "NetWorthCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "PPFCalculator.jsx",
+      "inputFields": 2,
+      "resultFields": 10,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "PropertyTaxCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "PropertyValuationCalculator.jsx",
+      "inputFields": 6,
+      "resultFields": 4,
+      "issues": [
+        "Few result fields",
+        "No dynamic calculations"
+      ]
+    },
+    {
+      "file": "RDCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Few input fields",
+        "Few result fields",
+        "No dynamic calculations"
+      ]
+    },
+    {
+      "file": "RealEstateCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "RentVsBuyCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "SIPCalculator.jsx",
+      "inputFields": 4,
+      "resultFields": 11,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "SWPCalculator.jsx",
+      "inputFields": 3,
+      "resultFields": 9,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "SavingsGoalCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "SimpleInterestCalculator.jsx",
+      "inputFields": 2,
+      "resultFields": 9,
+      "issues": [
+        "Few input fields"
+      ]
+    },
+    {
+      "file": "StockAverageCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "SubscriptionCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "TipCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "VendorQuotationCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    },
+    {
+      "file": "WFHSavingsCalculator.jsx",
+      "inputFields": 0,
+      "resultFields": 0,
+      "issues": [
+        "Could not parse PDF export structure"
+      ]
+    }
+  ],
+  "missing": [],
+  "issues": []
+}
