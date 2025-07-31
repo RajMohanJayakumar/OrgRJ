@@ -60,5 +60,11 @@ export default defineConfig({
         }
       }
     }
+  },
+  // Force Rollup to use WASM in CI environments
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020'
+    }
   }
 })
