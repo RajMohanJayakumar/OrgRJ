@@ -1,5 +1,5 @@
 {
-  "name": "@prime/engaged",
+  "name": "@orgr/engaged",
   "version": "1.0.0",
   "type": "module",
   "description": "Engaged - Interactive multiplayer games with WebSocket connectivity",

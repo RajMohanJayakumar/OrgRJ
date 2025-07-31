@@ -1,4 +1,4 @@
-# Prime Monorepo
+# OrgR Monorepo
 
 A monorepo containing multiple React applications: finclamp, arcade-games, engaged, and skips.
 
@@ -98,7 +98,7 @@ npm run deploy:finclamp
 ## Project Structure
 
 ```
-prime-monorepo/
+orgr-monorepo/
 ├── apps/
 │   ├── finclamp/              # Main financial calculator app
 │   ├── arcade-games/          # Arcade games collection

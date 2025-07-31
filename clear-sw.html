@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Service Workers</title>
+</head>
+<body>
+    <h1>Clearing Service Workers and Cache</h1>
+    <div id="status">Working...</div>
+    
+    <script>
+        async function clearServiceWorkers() {
+            const statusDiv = document.getElementById('status');
+            
+            try {
+                // Unregister all service workers
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    console.log('Found', registrations.length, 'service worker registrations');
+                    
+                    for (let registration of registrations) {
+                        console.log('Unregistering:', registration.scope);
+                        await registration.unregister();
+                    }
+                }
+                
+                // Clear all caches
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    console.log('Found', cacheNames.length, 'caches');
+                    
+                    for (let cacheName of cacheNames) {
+                        console.log('Deleting cache:', cacheName);
+                        await caches.delete(cacheName);
+                    }
+                }
+                
+                statusDiv.innerHTML = `
+                    <h2>✅ Cleanup Complete!</h2>
+                    <p>Service workers unregistered and caches cleared.</p>
+                    <p>You can now close this tab and refresh your other apps.</p>
+                `;
+                
+            } catch (error) {
+                console.error('Error clearing service workers:', error);
+                statusDiv.innerHTML = `
+                    <h2>❌ Error</h2>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        // Run immediately
+        clearServiceWorkers();
+    </script>
+</body>
+</html>

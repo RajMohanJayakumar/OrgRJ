@@ -1,7 +1,7 @@
 {
-  "name": "prime-monorepo",
+  "name": "orgr-monorepo",
   "version": "1.0.0",
-  "description": "Monorepo containing finclamp, arcade-games, engaged, and skips projects",
+  "description": "OrgR monorepo containing finclamp, arcade-games, engaged, and skips projects",
   "private": true,
   "type": "module",
   "workspaces": [
