@@ -257,7 +257,7 @@ export default function BubbleWrap() {
         {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            🫧 Bubble Wrap Stress Relief
+            🫧 Bubble Wrap Stress Relief - Meltdown
           </h1>
           <p className="text-gray-600">
             Pop bubbles to relax! Perfect for taking a break from financial calculations.
