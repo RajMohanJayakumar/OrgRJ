@@ -1,14 +1,17 @@
 
 // FinClamp Service Worker for Performance Optimization
-const CACHE_NAME = 'finclamp-v3';
+// Detect environment and set base path accordingly
+const isGitHubPages = self.location.hostname.includes('github.io');
+const BASE_PATH = isGitHubPages ? '/OrgRJ/' : '/';
+const CACHE_NAME = 'finclamp-v4';
 const urlsToCache = [
-  '/',
-  '/calculators',
-  '/games',
-  '/manifest.json',
-  '/favicon.svg',
-  '/android-chrome-192x192.svg',
-  '/android-chrome-512x512.svg'
+  BASE_PATH,
+  BASE_PATH + 'calculators',
+  BASE_PATH + 'games',
+  BASE_PATH + 'manifest.json',
+  BASE_PATH + 'favicon.svg',
+  BASE_PATH + 'android-chrome-192x192.svg',
+  BASE_PATH + 'android-chrome-512x512.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -58,10 +61,10 @@ self.addEventListener('fetch', event => {
 
         // For SPA routes (calculators, games), serve the main index.html
         const url = new URL(event.request.url);
-        if (url.pathname.startsWith('/calculators') || url.pathname.startsWith('/games')) {
-          return fetch('/').catch(() => {
+        if (url.pathname.startsWith(BASE_PATH + 'calculators') || url.pathname.startsWith(BASE_PATH + 'games')) {
+          return fetch(BASE_PATH).catch(() => {
             // If root fails, return cached version
-            return caches.match('/');
+            return caches.match(BASE_PATH);
           });
         }
 
@@ -69,9 +72,9 @@ self.addEventListener('fetch', event => {
           console.log('Fetch failed for:', event.request.url, error);
           // For navigation requests or SPA routes, return the main page
           if (event.request.mode === 'navigate' ||
-              url.pathname.startsWith('/calculators') ||
-              url.pathname.startsWith('/games')) {
-            return caches.match('/') || fetch('/');
+              url.pathname.startsWith(BASE_PATH + 'calculators') ||
+              url.pathname.startsWith(BASE_PATH + 'games')) {
+            return caches.match(BASE_PATH) || fetch(BASE_PATH);
           }
           throw error;
         });

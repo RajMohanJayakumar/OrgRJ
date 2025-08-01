@@ -17,8 +17,8 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     if (SW_ENABLED) {
       // Register service worker
-      navigator.serviceWorker.register('/sw.js', {
-        scope: '/'
+      navigator.serviceWorker.register('/OrgRJ/sw.js', {
+        scope: '/OrgRJ/'
       })
         .then((registration) => {
           console.log('✅ Service Worker registered successfully:', registration.scope)
