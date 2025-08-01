@@ -33,7 +33,8 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 5176
+    port: 5176,
+    strictPort: true
   },
   build: {
     assetsDir: 'assets',

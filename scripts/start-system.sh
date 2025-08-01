@@ -87,7 +87,7 @@ apis=("finclamp:8001" "arcade:8002" "engaged:8003" "skips:8004")
 for api_info in "${apis[@]}"; do
     IFS=':' read -r name port <<< "$api_info"
     
-    echo -e "${YELLOW}Starting ${name^} API on port $port...${NC}"
+    echo -e "${YELLOW}🚀 Starting $name API on port $port...${NC}"
     
     # Start the API in background
     cd "apps/api-${name}-go"
@@ -97,7 +97,7 @@ for api_info in "${apis[@]}"; do
     echo $api_pid > "../../logs/${name}-api.pid"
     cd - > /dev/null
     
-    echo -e "${GREEN}✅ ${name^} API started (PID: $api_pid)${NC}"
+    echo -e "${GREEN}✅ $name API started (PID: $api_pid)${NC}"
     sleep 2  # Give each service time to start
 done
 

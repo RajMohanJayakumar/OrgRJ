@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/prime/', // GitHub Pages repository path
+  base: process.env.NODE_ENV === 'production' ? '/prime/' : '/', // GitHub Pages for production, clean path for dev
   test: {
     globals: true,
     environment: 'jsdom',
@@ -38,6 +38,8 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
+    port: 5173,
+    strictPort: true, // Fail if port is in use instead of trying another
     // Handle SPA routing during development
     historyApiFallback: {
       rewrites: [

@@ -142,16 +142,41 @@ config.forEach(({ route, target, path: targetPath, port, host = 'localhost', pat
       const proxyOptions = {
         target: `http://${host}:${port}`,
         changeOrigin: true,
+        ws: true, // Enable WebSocket proxying for HMR
+        secure: false,
+        logLevel: 'debug',
         onError: (err, req, res) => {
           console.error(`Proxy error for ${route}:`, err.message);
-          res.status(502).json({
-            error: 'Bad Gateway',
-            message: `Failed to proxy request to ${host}:${port}`,
-            route: route
-          });
+          if (res && !res.headersSent) {
+            res.status(502).json({
+              error: 'Bad Gateway',
+              message: `Failed to proxy request to ${host}:${port}`,
+              route: route,
+              url: req.url
+            });
+          }
         },
         onProxyReq: (proxyReq, req, res) => {
           console.log(`Proxying ${req.method} ${req.url} -> ${host}:${port}`);
+        },
+        onProxyReqWs: (proxyReq, req, socket, options, head) => {
+          console.log(`Proxying WebSocket ${req.url} -> ${host}:${port}`);
+        },
+        // Handle Vite dev server specific routes
+        router: (req) => {
+          // For Vite special routes, always proxy to the dev server
+          if (req.url.startsWith('/@vite/') ||
+              req.url.startsWith('/@react-refresh') ||
+              req.url.startsWith('/src/') ||
+              req.url.startsWith('/node_modules/') ||
+              req.url.includes('.jsx') ||
+              req.url.includes('.tsx') ||
+              req.url.includes('.ts') ||
+              req.url.includes('?import') ||
+              req.url.includes('?t=')) {
+            return `http://${host}:${port}`;
+          }
+          return `http://${host}:${port}`;
         }
       };
 
@@ -160,7 +185,34 @@ config.forEach(({ route, target, path: targetPath, port, host = 'localhost', pat
         proxyOptions.pathRewrite = pathRewrite;
       }
 
-      app.use(route, createProxyMiddleware(proxyOptions));
+      // Create the proxy middleware
+      const proxy = createProxyMiddleware(proxyOptions);
+
+      // For Vite dev servers, we need to handle special routes at the root level too
+      if (port >= 5173 && port <= 5180) { // Vite dev server port range
+        // Handle Vite special routes at root level
+        app.use('/@vite', createProxyMiddleware({
+          ...proxyOptions,
+          pathRewrite: undefined // Don't rewrite these paths
+        }));
+
+        app.use('/@react-refresh', createProxyMiddleware({
+          ...proxyOptions,
+          pathRewrite: undefined
+        }));
+
+        app.use('/src', createProxyMiddleware({
+          ...proxyOptions,
+          pathRewrite: undefined
+        }));
+
+        app.use('/node_modules', createProxyMiddleware({
+          ...proxyOptions,
+          pathRewrite: undefined
+        }));
+      }
+
+      app.use(route, proxy);
 
     } else {
       console.error(`❌ Unknown target type '${target}' for route ${route}`);
