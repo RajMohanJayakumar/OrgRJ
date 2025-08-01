@@ -6,7 +6,8 @@
   "type": "module",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "gateway"
   ],
   "scripts": {
     "dev": "npm run dev --workspace=apps/finclamp",
@@ -16,6 +17,13 @@
     "dev:arcade": "npm run dev --workspace=apps/arcade-games",
     "dev:engaged": "npm run dev --workspace=apps/engaged",
     "dev:skips": "npm run dev --workspace=apps/skips",
+    "gateway": "node gateway/index.js",
+    "gateway:dev": "nodemon gateway/index.js",
+    "apis:start": "concurrently \"cd apps/api-finclamp-go && go run main.go\" \"cd apps/api-arcade-go && go run main.go\" \"cd apps/api-engaged-go && go run main.go\" \"cd apps/api-skips-go && go run main.go\"",
+    "system:start": "./scripts/start-system.sh",
+    "system:stop": "./scripts/stop-system.sh",
+    "system:restart": "npm run system:stop && sleep 2 && npm run system:start",
+    "system:dev": "concurrently \"npm run apis:start\" \"npm run gateway:dev\"",
     "build": "npm run build --workspaces --if-present",
     "build:all-no-finclamp": "npm run build:arcade && npm run build:engaged && npm run build:skips",
     "build:finclamp": "npm run build --workspace=apps/finclamp",
@@ -41,6 +49,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
+    "concurrently": "^9.2.0",
+    "nodemon": "^3.1.10",
     "typescript": "^5.2.2"
   },
   "engines": {
@@ -56,5 +66,9 @@
     "games",
     "calculator",
     "workspaces"
-  ]
+  ],
+  "dependencies": {
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5"
+  }
 }
