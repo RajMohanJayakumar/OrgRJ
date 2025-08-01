@@ -1,0 +1,42 @@
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for the top arc -->
+    <linearGradient id="topGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4ADE80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Gradient for the bottom arc -->
+    <linearGradient id="bottomGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background for better visibility -->
+  <rect width="180" height="180" fill="white" rx="22"/>
+
+  <!-- Top arc -->
+  <path d="M 45 90 A 45 45 0 0 1 135 90"
+        fill="none"
+        stroke="url(#topGradient)"
+        stroke-width="11"
+        stroke-linecap="round"/>
+
+  <!-- Bottom arc -->
+  <path d="M 135 90 A 45 45 0 0 1 45 90"
+        fill="none"
+        stroke="url(#bottomGradient)"
+        stroke-width="11"
+        stroke-linecap="round"/>
+
+  <!-- FinClamp Text -->
+  <text x="90" y="105"
+        font-family="Arial, sans-serif"
+        font-size="18"
+        font-weight="600"
+        text-anchor="middle"
+        fill="#8B5CF6">
+    FinClamp
+  </text>
+</svg>

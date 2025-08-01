@@ -1,0 +1,44 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Monochrome gradient for the top arc -->
+    <linearGradient id="topGradientMono" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6B7280;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B5563;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Monochrome gradient for the bottom arc -->
+    <linearGradient id="bottomGradientMono" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1F2937;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle (optional, for better visibility) -->
+  <circle cx="200" cy="200" r="190" fill="none" stroke="#E5E7EB" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Top arc -->
+  <path d="M 80 200 A 120 120 0 0 1 320 200" 
+        fill="none" 
+        stroke="url(#topGradientMono)" 
+        stroke-width="20" 
+        stroke-linecap="round"/>
+  
+  <!-- Bottom arc -->
+  <path d="M 320 200 A 120 120 0 0 1 80 200" 
+        fill="none" 
+        stroke="url(#bottomGradientMono)" 
+        stroke-width="20" 
+        stroke-linecap="round"/>
+  
+  <!-- FinClamp Text -->
+  <text x="200" y="220" 
+        font-family="Arial, sans-serif" 
+        font-size="48" 
+        font-weight="300" 
+        text-anchor="middle" 
+        fill="#4B5563" 
+        stroke="#9CA3AF" 
+        stroke-width="1">
+    FinClamp
+  </text>
+</svg>

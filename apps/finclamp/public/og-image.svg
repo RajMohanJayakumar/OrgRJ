@@ -1,0 +1,59 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- FinClamp Logo -->
+  <g transform="translate(100, 150)">
+    <!-- Top arc -->
+    <path d="M 30 60 A 30 30 0 0 1 90 60"
+          fill="none"
+          stroke="#4ADE80"
+          stroke-width="8"
+          stroke-linecap="round"/>
+
+    <!-- Bottom arc -->
+    <path d="M 90 60 A 30 30 0 0 1 30 60"
+          fill="none"
+          stroke="#3B82F6"
+          stroke-width="8"
+          stroke-linecap="round"/>
+  </g>
+  
+  <!-- Main Title -->
+  <text x="280" y="220" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white">
+    FinClamp
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="280" y="280" font-family="Arial, sans-serif" font-size="36" fill="white" fill-opacity="0.9">
+    Complete Financial Calculator Suite
+  </text>
+  
+  <!-- Features -->
+  <text x="100" y="380" font-family="Arial, sans-serif" font-size="28" fill="white" fill-opacity="0.8">
+    ✓ EMI Calculator  ✓ SIP Calculator  ✓ Tax Calculator
+  </text>
+  <text x="100" y="420" font-family="Arial, sans-serif" font-size="28" fill="white" fill-opacity="0.8">
+    ✓ FD Calculator   ✓ PPF Calculator  ✓ Investment Planning
+  </text>
+  
+  <!-- Call to Action -->
+  <rect x="100" y="480" width="300" height="60" rx="30" fill="white" fill-opacity="0.2"/>
+  <text x="250" y="520" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">
+    Free Online Calculators
+  </text>
+  
+  <!-- Website URL -->
+  <text x="1100" y="580" font-family="Arial, sans-serif" font-size="20" fill="white" fill-opacity="0.7" text-anchor="end">
+    finclamp.com
+  </text>
+</svg>

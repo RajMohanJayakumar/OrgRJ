@@ -1,0 +1,41 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://finclamp.com/sitemap.xml
+
+# Allow calculator pages (new and legacy URLs)
+Allow: /calculators*
+Allow: /games*
+Allow: /calculator/*
+
+# Allow verification files
+Allow: /ads.txt
+Allow: /google*.html
+Allow: /bing*.xml
+
+# Disallow unnecessary paths
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /api/
+
+# Disallow tracking parameters
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+
+# Crawl delay
+Crawl-delay: 1
+
+# Mobile-optimized calculator pages
+User-agent: Googlebot-Mobile
+Allow: /calculator
+Allow: /calculator?in=*
+
+# Enhanced sitemap for mobile calculators
+Sitemap: https://finclamp.com/sitemap-calculators-mobile.xml
+
+# Mobile app manifest
+Allow: /manifest.json
+Allow: /sw.js

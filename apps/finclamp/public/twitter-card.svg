@@ -1,0 +1,72 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="twitterBgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1DA1F2;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#twitterBgGradient)"/>
+  
+  <!-- FinClamp Logo -->
+  <g transform="translate(80, 120)">
+    <!-- Top arc -->
+    <path d="M 25 50 A 25 25 0 0 1 75 50"
+          fill="none"
+          stroke="#4ADE80"
+          stroke-width="6"
+          stroke-linecap="round"/>
+
+    <!-- Bottom arc -->
+    <path d="M 75 50 A 25 25 0 0 1 25 50"
+          fill="none"
+          stroke="#3B82F6"
+          stroke-width="6"
+          stroke-linecap="round"/>
+  </g>
+  
+  <!-- Main Title -->
+  <text x="220" y="180" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white">
+    FinClamp
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="220" y="230" font-family="Arial, sans-serif" font-size="32" fill="white" fill-opacity="0.9">
+    Financial Calculator Suite
+  </text>
+  
+  <!-- Features Grid -->
+  <text x="80" y="320" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+    📊 EMI Calculator
+  </text>
+  <text x="320" y="320" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+    📈 SIP Calculator
+  </text>
+  <text x="560" y="320" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+    🧾 Tax Calculator
+  </text>
+  
+  <text x="80" y="360" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+    🏦 FD Calculator
+  </text>
+  <text x="320" y="360" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+    🛡️ PPF Calculator
+  </text>
+  <text x="560" y="360" font-family="Arial, sans-serif" font-size="24" fill="white" fill-opacity="0.8">
+    🏛️ NPS Calculator
+  </text>
+  
+  <!-- Call to Action -->
+  <rect x="80" y="420" width="280" height="50" rx="25" fill="white" fill-opacity="0.2"/>
+  <text x="220" y="455" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" text-anchor="middle">
+    Free • Easy • Accurate
+  </text>
+  
+  <!-- Website URL -->
+  <text x="1120" y="550" font-family="Arial, sans-serif" font-size="18" fill="white" fill-opacity="0.7" text-anchor="end">
+    finclamp.com
+  </text>
+</svg>
