@@ -42,6 +42,11 @@ jobs:
         run: |
           npm ci --legacy-peer-deps
 
+      - name: Install finclamp dependencies
+        run: |
+          cd apps/finclamp
+          npm install --legacy-peer-deps
+
       - name: Build finclamp
         env:
           NODE_OPTIONS: "--max-old-space-size=4096"
