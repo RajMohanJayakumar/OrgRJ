@@ -7,22 +7,15 @@ on:
       - "apps/finclamp/**"
       - "packages/shared/**"
       - ".github/workflows/deploy-finclamp.yml"
-  pull_request:
-    branches: [main]
-    paths:
-      - "apps/finclamp/**"
-      - "packages/shared/**"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
-  actions: read
-  deployments: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -34,12 +27,7 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      NPM_CONFIG_TIMEOUT: 600000
-      NPM_CONFIG_FETCH_RETRIES: 3
-      NPM_CONFIG_FETCH_RETRY_MINTIMEOUT: 10000
-      NPM_CONFIG_FETCH_RETRY_MAXTIMEOUT: 60000
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,63 +36,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
-      - name: Clean and install dependencies
+      - name: Install dependencies
         run: |
-          # Clean any existing installations
-          rm -rf node_modules package-lock.json
-
-          # Verify workspace structure
-          echo "Workspace structure:"
-          ls -la apps/
-
-          # Install with multiple fallback strategies
-          npm install --legacy-peer-deps --include=optional --timeout=600000 || \
-          npm install --force --legacy-peer-deps --include=optional --timeout=600000 || \
-          (npm cache clean --force && npm install --legacy-peer-deps --include=optional --timeout=600000)
-
-          # Verify workspaces are properly set up
-          npm ls --depth=0 || echo "Workspace listing failed, continuing..."
-
-      - name: Verify installation
-        run: |
-          echo "Checking npm and node versions..."
-          npm --version
-          node --version
-          echo "Checking if Vite is available..."
-          npx vite --version || echo "Vite not found, will install in workspace"
+          npm ci --legacy-peer-deps
 
       - name: Build finclamp
         env:
-          ROLLUP_FORCE_WASM: true
           NODE_OPTIONS: "--max-old-space-size=4096"
           CI: true
         run: |
-          # Ensure we're in the right directory and dependencies are available
           cd apps/finclamp
-
-          # Install workspace-specific dependencies if needed
-          npm install --legacy-peer-deps --timeout=300000 || true
-
-          # Try to install missing native dependencies if needed
-          npm install @rollup/rollup-linux-x64-gnu --no-save --silent || true
-          npm install lightningcss-linux-x64-gnu --no-save --silent || true
-
-          # Verify Vite is available
-          npx vite --version
-
-          # Build the project
           npm run build
 
       - name: Setup Pages
-        id: pages
         uses: actions/configure-pages@v4
-        with:
-          # Enable Pages if not already enabled
-          enablement: true
-          # Specify the token explicitly
-          token: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -14,9 +14,7 @@
     "test:coverage": "vitest run --coverage --reporter=verbose --reporter=html; open coverage/index.html",
     "audit:calculator-ids": "node scripts/audit-calculator-ids.cjs",
     "audit:seo": "node scripts/check-missing-seo.cjs",
-    "enhance:seo": "node scripts/enhance-seo-features.cjs",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "enhance:seo": "node scripts/enhance-seo-features.cjs"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +28,6 @@
     "@vitejs/plugin-react": "^4.2.0",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
-    "gh-pages": "^6.3.0",
     "jsdom": "^26.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
