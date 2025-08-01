@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 
 // Service Worker configuration
-const SW_ENABLED = true // Enabled for PWA functionality
+const SW_ENABLED = true // Enabled for PWA functionality - trigger deployment
 
 // Handle service worker registration/unregistration
 if ('serviceWorker' in navigator) {
