@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # Arcade Games Development
+  arcade-games-dev:
+    build:
+      context: ./apps/arcade-games
+      dockerfile: Dockerfile
+      target: builder
+    container_name: orgr-arcade-games-dev
+    ports:
+      - "5174:5173"
+    volumes:
+      - ./apps/arcade-games:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_HOST=0.0.0.0
+      - VITE_PORT=5173
+    command: npm run dev
+    restart: unless-stopped
+    networks:
+      - orgr-dev-network
+
+  # Engaged Development
+  engaged-dev:
+    build:
+      context: ./apps/engaged
+      dockerfile: Dockerfile
+      target: builder
+    container_name: orgr-engaged-dev
+    ports:
+      - "5175:5173"
+    volumes:
+      - ./apps/engaged:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_HOST=0.0.0.0
+      - VITE_PORT=5173
+    command: npm run dev
+    restart: unless-stopped
+    networks:
+      - orgr-dev-network
+
+  # Skips Development
+  skips-dev:
+    build:
+      context: ./apps/skips
+      dockerfile: Dockerfile
+      target: builder
+    container_name: orgr-skips-dev
+    ports:
+      - "5176:5173"
+    volumes:
+      - ./apps/skips:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_HOST=0.0.0.0
+      - VITE_PORT=5173
+    command: npm run dev
+    restart: unless-stopped
+    networks:
+      - orgr-dev-network
+
+networks:
+  orgr-dev-network:
+    driver: bridge
+    name: orgr-dev-network

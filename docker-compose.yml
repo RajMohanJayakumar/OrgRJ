@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Arcade Games Service
+  arcade-games:
+    build:
+      context: ./apps/arcade-games
+      dockerfile: Dockerfile
+    container_name: orgr-arcade-games
+    ports:
+      - "3001:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - orgr-network
+
+  # Engaged Service
+  engaged:
+    build:
+      context: ./apps/engaged
+      dockerfile: Dockerfile
+    container_name: orgr-engaged
+    ports:
+      - "3002:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - orgr-network
+
+  # Skips Service
+  skips:
+    build:
+      context: ./apps/skips
+      dockerfile: Dockerfile
+    container_name: orgr-skips
+    ports:
+      - "3003:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - orgr-network
+
+  # Reverse Proxy (Optional - for production)
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: orgr-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - arcade-games
+      - engaged
+      - skips
+    restart: unless-stopped
+    networks:
+      - orgr-network
+    profiles:
+      - production
+
+networks:
+  orgr-network:
+    driver: bridge
+    name: orgr-network
+
+volumes:
+  nginx-logs:
+    driver: local

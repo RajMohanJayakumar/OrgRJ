@@ -1,7 +1,7 @@
 {
-  "name": "orgr-monorepo",
+  "name": "orgrj-monorepo",
   "version": "1.0.0",
-  "description": "OrgR monorepo containing finclamp, arcade-games, engaged, and skips projects",
+  "description": "OrgRJ monorepo containing finclamp, arcade-games, engaged, and skips projects",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -11,16 +11,19 @@
   "scripts": {
     "dev": "npm run dev --workspace=apps/finclamp",
     "dev:all": "node scripts/dev-all.js",
+    "dev:all-no-finclamp": "node scripts/dev-all.js --exclude-finclamp",
     "dev:finclamp": "npm run dev --workspace=apps/finclamp",
     "dev:arcade": "npm run dev --workspace=apps/arcade-games",
     "dev:engaged": "npm run dev --workspace=apps/engaged",
     "dev:skips": "npm run dev --workspace=apps/skips",
     "build": "npm run build --workspaces --if-present",
+    "build:all-no-finclamp": "npm run build:arcade && npm run build:engaged && npm run build:skips",
     "build:finclamp": "npm run build --workspace=apps/finclamp",
     "build:arcade": "npm run build --workspace=apps/arcade-games",
     "build:engaged": "npm run build --workspace=apps/engaged",
     "build:skips": "npm run build --workspace=apps/skips",
     "test": "npm run test --workspaces --if-present",
+    "test:all-no-finclamp": "npm run test:arcade && npm run test:engaged && npm run test:skips",
     "test:finclamp": "npm run test --workspace=apps/finclamp",
     "test:arcade": "npm run test --workspace=apps/arcade-games",
     "test:engaged": "npm run test --workspace=apps/engaged",
@@ -28,7 +31,13 @@
     "lint": "npm run lint --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
     "install:all": "npm install",
-    "deploy:finclamp": "npm run deploy --workspace=apps/finclamp"
+    "deploy:finclamp": "npm run deploy --workspace=apps/finclamp",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:restart": "docker-compose restart",
+    "docker:clean": "docker-compose down -v --rmi all"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

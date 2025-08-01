@@ -12,16 +12,27 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
 
-const apps = [
+// Check if finclamp should be excluded
+const excludeFinclamp = process.argv.includes('--exclude-finclamp')
+
+const allApps = [
   { name: 'finclamp', port: 5173, color: '\x1b[36m' }, // Cyan
   { name: 'arcade-games', port: 5174, color: '\x1b[33m' },        // Yellow
   { name: 'engaged', port: 5175, color: '\x1b[35m' },         // Magenta
   { name: 'skips', port: 5176, color: '\x1b[32m' }          // Green
 ]
 
+const apps = excludeFinclamp
+  ? allApps.filter(app => app.name !== 'finclamp')
+  : allApps
+
 const reset = '\x1b[0m'
 
-console.log('🚀 Starting all apps in development mode...\n')
+const modeText = excludeFinclamp
+  ? '🚀 Starting apps in development mode (excluding finclamp - deployed on GitHub Pages)...\n'
+  : '🚀 Starting all apps in development mode...\n'
+
+console.log(modeText)
 
 const processes = apps.map(app => {
   console.log(`${app.color}Starting ${app.name} on port ${app.port}${reset}`)

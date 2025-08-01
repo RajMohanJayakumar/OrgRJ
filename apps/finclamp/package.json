@@ -1,5 +1,5 @@
 {
-  "name": "@orgr/finclamp",
+  "name": "@orgrj/finclamp",
   "version": "1.0.0",
   "type": "module",
   "description": "FinClamp - Complete financial calculator suite for loans, savings, mutual funds, and taxes",
@@ -14,7 +14,8 @@
     "test:coverage": "vitest run --coverage --reporter=verbose --reporter=html; open coverage/index.html",
     "audit:calculator-ids": "node scripts/audit-calculator-ids.cjs",
     "audit:seo": "node scripts/check-missing-seo.cjs",
-    "enhance:seo": "node scripts/enhance-seo-features.cjs"
+    "enhance:seo": "node scripts/enhance-seo-features.cjs",
+    "deploy": "npm run build"
   },
   "keywords": [],
   "author": "",

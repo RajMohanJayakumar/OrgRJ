@@ -1,6 +1,9 @@
 # OrgR Monorepo
 
-A monorepo containing multiple React applications: finclamp, arcade-games, engaged, and skips.
+A monorepo containing multiple React applications with hybrid deployment strategy:
+
+- **FinClamp**: Deployed on GitHub Pages
+- **Other Apps**: Containerized with Docker
 
 ## Projects
 
@@ -34,19 +37,29 @@ The monorepo is now fully set up and ready to use! All four projects have been s
 
 ### Development
 
-Run all apps in development mode:
+**All apps including finclamp:**
 
 ```bash
-npm run dev
+npm run dev:all
+# OR
+make dev-all
 ```
 
-Run specific apps:
+**Apps without finclamp** (recommended when finclamp is live on GitHub Pages):
 
 ```bash
-npm run dev:finclamp      # FinClamp
-npm run dev:arcade        # Arcade Games
-npm run dev:engaged       # Engaged
-npm run dev:skips         # Skips
+npm run dev:all-no-finclamp
+# OR
+make dev-no-finclamp
+```
+
+**Individual apps:**
+
+```bash
+npm run dev:finclamp      # FinClamp (Port 5173)
+npm run dev:arcade        # Arcade Games (Port 5174)
+npm run dev:engaged       # Engaged (Port 5175)
+npm run dev:skips         # Skips (Port 5176)
 ```
 
 ### Building
@@ -83,22 +96,70 @@ npm run test:engaged
 npm run test:skips
 ```
 
-## Deployment
+## 🚀 Deployment
 
-### GitHub Pages (FinClamp)
+### FinClamp (GitHub Pages)
 
-The finclamp app is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+**Automatic deployment** on push to `main` branch:
 
-Manual deployment:
+- Triggers when `apps/finclamp/**` files change
+- Builds and deploys to GitHub Pages
+- Access: `https://yourusername.github.io/prime/`
+
+**Manual deployment:**
 
 ```bash
 npm run deploy:finclamp
 ```
 
+### Other Apps (Docker Containers)
+
+**Production deployment:**
+
+```bash
+# Build and start all containers
+make docker-build
+make docker-up
+
+# OR using docker-compose directly
+docker-compose build
+docker-compose up -d
+```
+
+**Access URLs:**
+
+- Arcade Games: `http://localhost:3001`
+- Engaged: `http://localhost:3002`
+- Skips: `http://localhost:3003`
+- Proxy Dashboard: `http://localhost:80`
+
+**Docker commands:**
+
+```bash
+make docker-logs      # View logs
+make docker-restart   # Restart services
+make docker-down      # Stop services
+make docker-clean     # Clean up everything
+make status           # Check container status
+```
+
+### Make Commands Reference
+
+```bash
+make help             # Show all available commands
+make dev-all          # Start all apps in development
+make dev-no-finclamp  # Start apps without finclamp
+make build            # Build all apps
+make test             # Run all tests
+make docker-up        # Start production containers
+```
+
+📚 **For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)**
+
 ## Project Structure
 
 ```
-orgr-monorepo/
+orgrj-monorepo/
 ├── apps/
 │   ├── finclamp/              # Main financial calculator app
 │   ├── arcade-games/          # Arcade games collection

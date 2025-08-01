@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/OrgR/', // GitHub Pages repository path
+  base: '/prime/', // GitHub Pages repository path
   test: {
     globals: true,
     environment: 'jsdom',
