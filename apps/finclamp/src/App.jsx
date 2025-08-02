@@ -340,7 +340,8 @@ export default function App() {
       }
     }
 
-    return null
+    // Fallback to default if no calculator detected
+    return { mainTab: 'loans', subTab: 'emi' }
     } catch (error) {
       console.warn('Error detecting calculator from URL:', error)
       // Fallback to default
