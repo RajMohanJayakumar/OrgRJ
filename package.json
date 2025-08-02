@@ -39,6 +39,7 @@
     "build:skips": "npm run build --workspace=apps/skips",
     "build:github": "node scripts/build-all.js production",
     "deploy:root": "node scripts/deploy-to-root.cjs",
+    "deploy:github-pages": "node scripts/deploy-github-pages.cjs",
     "build:github:staging": "node scripts/build-all.js staging",
     "build:app": "node scripts/build-app.js",
     "build:single": "node scripts/build-single-app.js",
