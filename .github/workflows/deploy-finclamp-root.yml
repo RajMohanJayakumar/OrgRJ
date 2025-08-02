@@ -115,4 +115,4 @@ jobs:
           echo "- **URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Deployment Type**: GitHub Pages (FinClamp serves from /OrgRJ/)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment Type**: GitHub Pages (FinClamp serves from root /)" >> $GITHUB_STEP_SUMMARY
