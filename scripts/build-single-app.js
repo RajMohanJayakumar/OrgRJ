@@ -67,35 +67,34 @@ async function buildSingleApp(appName = null, environment = 'production') {
     await fs.writeFile(envFilePath, envContent);
     console.log(`📝 Created .env.production file`);
     
-    // Update package.json with correct base URL for GitHub Pages
+    // Check if package.json exists (skip updating for now since apps already have correct base URLs)
     const packageJsonPath = path.join(sourceDir, 'package.json');
     const packageJsonExists = await fs.access(packageJsonPath).then(() => true).catch(() => false);
-    
+
     if (packageJsonExists) {
-      const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
-      
-      // Update build script if needed
-      if (config.build.framework === 'vite') {
-        packageJson.scripts = packageJson.scripts || {};
-        packageJson.scripts.build = `vite build --base=${config.githubPages.baseUrl}/`;
-      }
-      
-      await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
-      console.log(`📦 Updated package.json for GitHub Pages`);
+      console.log(`📦 Using existing package.json build configuration`);
     }
     
-    // Install dependencies
-    console.log(`📥 Installing dependencies...`);
-    execSync('npm install', { 
-      cwd: sourceDir, 
+    // Install dependencies from root (for shared tools like Vite)
+    console.log(`📥 Installing root dependencies...`);
+    execSync('npm install', {
+      cwd: rootDir,
+      stdio: 'inherit',
+      env: { ...process.env, ...envVars }
+    });
+
+    // Install app-specific dependencies
+    console.log(`📥 Installing app dependencies...`);
+    execSync('npm install', {
+      cwd: sourceDir,
       stdio: 'inherit',
       env: { ...process.env, ...envVars }
     });
     
-    // Run build command
-    console.log(`🔨 Building app: ${config.buildCommand}`);
-    execSync(config.buildCommand, { 
-      cwd: sourceDir, 
+    // Run build command using workspace
+    console.log(`🔨 Building app: npm run build --workspace=${config.sourceDir}`);
+    execSync(`npm run build --workspace=${config.sourceDir}`, {
+      cwd: rootDir,
       stdio: 'inherit',
       env: { ...process.env, ...envVars }
     });

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/OrgRJ/finclamp/",
+    "build": "vite build --base=/OrgRJ/",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",

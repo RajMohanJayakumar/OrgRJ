@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       app_name:
-        description: 'App to deploy'
+        description: "App to deploy"
         required: true
-        default: 'finclamp'
+        default: "finclamp"
         type: choice
         options:
           - finclamp
@@ -14,22 +14,22 @@ on:
           - engaged
           - skips
       environment:
-        description: 'Environment'
+        description: "Environment"
         required: true
-        default: 'production'
+        default: "production"
         type: choice
         options:
           - production
           - staging
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'apps/finclamp/**'
-      - 'apps/arcade-games/**'
-      - 'apps/engaged/**'
-      - 'apps/skips/**'
-      - 'single-app-build.config.js'
-      - 'scripts/build-single-app.js'
+      - "apps/finclamp/**"
+      - "apps/arcade-games/**"
+      - "apps/engaged/**"
+      - "apps/skips/**"
+      - "single-app-build.config.js"
+      - "scripts/build-single-app.js"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -64,7 +64,7 @@ jobs:
           # Get changed files
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
           echo "Changed files: $CHANGED_FILES"
-          
+
           # Detect which app changed
           if echo "$CHANGED_FILES" | grep -q "^apps/finclamp/"; then
             echo "app_name=finclamp" >> $GITHUB_OUTPUT
@@ -104,8 +104,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Determine app to build
         id: app-config
@@ -117,7 +117,7 @@ jobs:
             APP_NAME="${{ needs.detect-changes.outputs.app_name }}"
             ENVIRONMENT="production"
           fi
-          
+
           echo "app_name=$APP_NAME" >> $GITHUB_OUTPUT
           echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
           echo "Building app: $APP_NAME (environment: $ENVIRONMENT)"
@@ -126,7 +126,11 @@ jobs:
         run: |
           npm ci
           # Only install dependencies for the target app
-          cd apps/${{ steps.app-config.outputs.app_name == 'arcade' && 'arcade-games' || steps.app-config.outputs.app_name }}
+          if [ "${{ steps.app-config.outputs.app_name }}" = "arcade" ]; then
+            cd apps/arcade-games
+          else
+            cd apps/${{ steps.app-config.outputs.app_name }}
+          fi
           npm ci
 
       - name: Build single app
@@ -143,7 +147,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: "./dist"
 
       - name: Deploy to GitHub Pages
         id: deployment
