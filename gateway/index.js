@@ -1,15 +1,16 @@
 /**
- * Ultra-Simple Gateway - FIXED FOR VITE
- * 
- * This gateway uses a single proxy with intelligent routing
- * to avoid route conflicts and ensure Vite resources work correctly.
+ * Universal Gateway Server - Configuration-Driven
+ *
+ * Uses external configuration file for clean, maintainable routing.
+ * Supports intelligent Vite resource routing and multi-app development.
  */
 
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { GATEWAY_CONFIG, getTargetPort, getAppName } from './routes.config.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = GATEWAY_CONFIG.server.port;
 
 // CORS middleware
 app.use((req, res, next) => {
@@ -40,51 +41,31 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Function to determine target port based on URL
-function getTargetPort(url, referer = '') {
-  // API routes
-  if (url.startsWith('/api/finclamp')) return 8001;
-  if (url.startsWith('/api/arcade')) return 8002;
-  if (url.startsWith('/api/engaged')) return 8003;
-  if (url.startsWith('/api/skips')) return 8004;
-  
-  // Frontend routes
-  if (url.startsWith('/arcade') || url.startsWith('/retro-games')) return 5174;
-  if (url.startsWith('/engaged') || url.startsWith('/wedding') || url.startsWith('/planning')) return 5175;
-  if (url.startsWith('/skips') || url.startsWith('/fitness') || url.startsWith('/tracker')) return 5176;
-  
-  // FinClamp routes (default)
-  if (url.startsWith('/finclamp') || 
-      url.startsWith('/finance') || 
-      url.startsWith('/calculator') || 
-      url.startsWith('/calculators') || 
-      url.startsWith('/games') ||
-      url.startsWith('/@vite') ||
-      url.startsWith('/@react-refresh') ||
-      url.startsWith('/src') ||
-      url.startsWith('/node_modules')) {
-    return 5173;
+// Enhanced logging for Vite resources
+function logViteRouting(url, referer, targetPort, appName) {
+  const isViteResource = GATEWAY_CONFIG.vite.routes.some(route => url.startsWith(route));
+  if (isViteResource) {
+    console.log(`🔧 Vite resource: ${url} (referer: ${referer})`);
+    console.log(`   → Routing to ${GATEWAY_CONFIG.frontend[appName]?.name || appName} (${targetPort})`);
   }
-  
-  // Check referer for Vite resources
-  if (referer.includes('/arcade')) return 5174;
-  if (referer.includes('/engaged')) return 5175;
-  if (referer.includes('/skips')) return 5176;
-  
-  // Default to FinClamp
-  return 5173;
 }
 
 // Single proxy middleware that handles ALL requests
 const universalProxy = createProxyMiddleware({
-  target: 'http://localhost:5173', // Default target
+  target: `http://localhost:${GATEWAY_CONFIG.frontend.finclamp.port}`, // Default target
   changeOrigin: true,
-  ws: true, // WebSocket support
+  ws: GATEWAY_CONFIG.server.websocket.enabled,
   secure: false,
   router: (req) => {
-    const targetPort = getTargetPort(req.url, req.get('Referer') || '');
+    const referer = req.get('Referer') || '';
+    const targetPort = getTargetPort(req.url, referer);
+    const appName = getAppName(req.url, referer);
     const target = `http://localhost:${targetPort}`;
+
+    // Enhanced logging
+    logViteRouting(req.url, referer, targetPort, appName);
     console.log(`🔀 Routing: ${req.method} ${req.url} -> ${target}`);
+
     return target;
   },
   onError: (err, req, res) => {
@@ -92,8 +73,9 @@ const universalProxy = createProxyMiddleware({
     if (res && !res.headersSent) {
       res.status(502).json({
         error: 'Bad Gateway',
-        message: `Failed to proxy request`,
-        url: req.url
+        message: `Failed to proxy request to ${req.url}`,
+        url: req.url,
+        timestamp: new Date().toISOString()
       });
     }
   },
@@ -102,33 +84,50 @@ const universalProxy = createProxyMiddleware({
   }
 });
 
-// Root route - simple landing page
+// Root route - configuration-driven landing page
 app.get('/', (req, res) => {
+  // Generate app links from configuration
+  const appLinks = Object.entries(GATEWAY_CONFIG.frontend)
+    .map(([appName, config]) => {
+      const primaryRoute = config.routes[0];
+      return `<a href="${primaryRoute}" class="link">${config.name}</a>`;
+    })
+    .join('\n        ');
+
   res.send(`
     <!DOCTYPE html>
     <html>
     <head>
-      <title>Ultra-Simple Gateway</title>
+      <title>Universal Gateway</title>
       <style>
-        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
-        .link { display: inline-block; margin: 10px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        .link:hover { background: #0056b3; }
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .link { display: inline-block; margin: 10px; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; transition: all 0.3s; }
+        .link:hover { background: #0056b3; transform: translateY(-2px); }
+        .health-link { background: #28a745; }
+        .health-link:hover { background: #1e7e34; }
+        .section { margin: 30px 0; }
+        .description { color: #666; margin: 10px 0; }
       </style>
     </head>
     <body>
-      <h1>🚀 Ultra-Simple Gateway</h1>
-      <p>Fixed for Vite development server compatibility</p>
-      
-      <div>
-        <a href="/calculators?currency=dollar&in=emi" class="link">FinClamp Calculators</a>
-        <a href="/games?in=finance-quest" class="link">FinClamp Games</a>
-        <a href="/arcade" class="link">Arcade</a>
-        <a href="/engaged" class="link">Engaged</a>
-        <a href="/skips" class="link">Skips</a>
-      </div>
-      
-      <div style="margin-top: 30px;">
-        <a href="/health" class="link">Health Check</a>
+      <div class="container">
+        <h1>🚀 Universal Gateway</h1>
+        <p class="description">Configuration-driven routing with intelligent Vite support</p>
+
+        <div class="section">
+          <h3>Applications</h3>
+          ${appLinks}
+        </div>
+
+        <div class="section">
+          <h3>Utilities</h3>
+          <a href="/health" class="link health-link">Health Check</a>
+        </div>
+
+        <div class="section">
+          <small>Server: localhost:${PORT} | Environment: ${GATEWAY_CONFIG.server.environment}</small>
+        </div>
       </div>
     </body>
     </html>
@@ -140,31 +139,47 @@ app.use('/', universalProxy);
 
 // Start server
 const server = app.listen(PORT, () => {
-  console.log('\n🚀 Ultra-Simple Gateway Started');
+  console.log('\n🚀 Universal Gateway Started');
   console.log(`📡 Server: http://localhost:${PORT}`);
-  console.log(`⚡ Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log('\n📋 Intelligent Routing:');
-  console.log('   /calculators, /games, /@vite/* -> localhost:5173 (FinClamp)');
-  console.log('   /arcade                        -> localhost:5174 (Arcade)');
-  console.log('   /engaged                       -> localhost:5175 (Engaged)');
-  console.log('   /skips                         -> localhost:5176 (Skips)');
-  console.log('   /api/*                         -> localhost:800x (APIs)');
+  console.log(`⚡ Environment: ${GATEWAY_CONFIG.server.environment}`);
+
+  console.log('\n📋 Frontend Applications:');
+  Object.entries(GATEWAY_CONFIG.frontend).forEach(([appName, config]) => {
+    const routes = config.routes.join(', ');
+    console.log(`   ${routes} -> localhost:${config.port} (${config.name})`);
+  });
+
+  console.log('\n🔌 API Endpoints:');
+  Object.entries(GATEWAY_CONFIG.api).forEach(([appName, config]) => {
+    const routes = config.routes.join(', ');
+    console.log(`   ${routes} -> localhost:${config.port} (${config.name})`);
+  });
+
+  console.log('\n🔧 Vite Resources:');
+  console.log(`   ${GATEWAY_CONFIG.vite.routes.join(', ')} -> ${GATEWAY_CONFIG.vite.routing.strategy}`);
+
   console.log('\n🔍 Health check: http://localhost:' + PORT + '/health');
-  console.log('🔌 WebSocket support: Enabled for HMR');
+  console.log(`🔌 WebSocket support: ${GATEWAY_CONFIG.server.websocket.enabled ? 'Enabled' : 'Disabled'}`);
   console.log('───────────────────────────────────────────────────\n');
 });
 
 // WebSocket support for Vite HMR
-server.on('upgrade', (request, socket, head) => {
-  const targetPort = getTargetPort(request.url, request.headers.referer);
-  console.log(`🔌 WebSocket upgrade: ${request.url} -> localhost:${targetPort}`);
-  
-  const wsProxy = createProxyMiddleware({
-    target: `http://localhost:${targetPort}`,
-    changeOrigin: true,
-    ws: true,
-    onError: (err) => console.error(`❌ WebSocket error:`, err.message)
+if (GATEWAY_CONFIG.server.websocket.enabled) {
+  server.on('upgrade', (request, socket, head) => {
+    const referer = request.headers.referer || '';
+    const targetPort = getTargetPort(request.url, referer);
+    const appName = getAppName(request.url, referer);
+    const appConfig = GATEWAY_CONFIG.frontend[appName];
+
+    console.log(`🔌 WebSocket upgrade: ${request.url} -> localhost:${targetPort} (${appConfig?.name || appName})`);
+
+    const wsProxy = createProxyMiddleware({
+      target: `http://localhost:${targetPort}`,
+      changeOrigin: true,
+      ws: true,
+      onError: (err) => console.error(`❌ WebSocket error for ${appConfig?.name || appName}:`, err.message)
+    });
+
+    wsProxy.upgrade(request, socket, head);
   });
-  
-  wsProxy.upgrade(request, socket, head);
-});
+}
