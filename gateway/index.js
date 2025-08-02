@@ -1,13 +1,13 @@
 /**
- * Universal Gateway Server - Configuration-Driven
+ * API Gateway Server - Configuration-Driven
  *
- * Uses external configuration file for clean, maintainable routing.
- * Supports intelligent Vite resource routing and multi-app development.
+ * API-only gateway for backend services.
+ * Frontend apps are accessed directly on their development ports.
  */
 
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { GATEWAY_CONFIG, getTargetPort, getAppName } from './routes.config.js';
+import { GATEWAY_CONFIG, getTargetPort, getApiAppName } from './routes.config.js';
 
 const app = express();
 const PORT = GATEWAY_CONFIG.server.port;

@@ -20,64 +20,35 @@ export const GATEWAY_CONFIG = {
     }
   },
 
-  // Frontend application routes
+  // Frontend applications (for build configuration only)
   frontend: {
     finclamp: {
       port: 5173,
       name: 'FinClamp',
       description: 'Financial calculators and games',
-      routes: [
-        '/calculators',
-        '/calculator',
-        '/finclamp',
-        '/finance',
-        '/games'
-      ],
-      aliases: [
-        '/calc',
-        '/fin'
-      ]
+      buildPath: '/finclamp',
+      devUrl: 'http://localhost:5173'
     },
     arcade: {
       port: 5174,
       name: 'Arcade',
       description: 'Retro games collection',
-      routes: [
-        '/arcade',
-        '/retro-games'
-      ],
-      aliases: [
-        '/games-arcade',
-        '/retro'
-      ]
+      buildPath: '/arcade',
+      devUrl: 'http://localhost:5174'
     },
     engaged: {
       port: 5175,
       name: 'Engaged',
       description: 'Wedding planning application',
-      routes: [
-        '/engaged',
-        '/wedding',
-        '/planning'
-      ],
-      aliases: [
-        '/wed',
-        '/plan'
-      ]
+      buildPath: '/engaged',
+      devUrl: 'http://localhost:5175'
     },
     skips: {
       port: 5176,
       name: 'Skips',
       description: 'Fitness tracking application',
-      routes: [
-        '/skips',
-        '/fitness',
-        '/tracker'
-      ],
-      aliases: [
-        '/fit',
-        '/track'
-      ]
+      buildPath: '/skips',
+      devUrl: 'http://localhost:5176'
     }
   },
 
@@ -117,67 +88,21 @@ export const GATEWAY_CONFIG = {
     }
   },
 
-  // Vite development server resources
-  vite: {
-    description: 'Vite development server resources with intelligent routing',
-    routes: [
-      '/@vite',
-      '/@react-refresh',
-      '/src',
-      '/node_modules',
-      '/@fs'
-    ],
-    routing: {
-      strategy: 'referer-based',
-      description: 'Routes based on the referer header to determine which app requested the resource',
-      fallback: 'finclamp'
-    }
-  },
 
-  // Special routes
-  special: {
-    health: {
-      path: '/health',
-      description: 'Gateway health check endpoint'
-    },
-    root: {
-      path: '/',
-      description: 'Gateway landing page with navigation'
-    },
-    serviceWorker: {
-      paths: ['/sw.js', '/OrgRJ/sw.js'],
-      description: 'Service worker routes (disabled to prevent conflicts)'
-    }
-  },
 
-  // Route priority (higher number = higher priority)
-  priority: {
-    vite: 100,        // Vite resources must be handled first
-    api: 90,          // API routes next
-    special: 80,      // Special routes
-    frontend: 70      // Frontend routes last (catch-all)
+  // Server configuration
+  server: {
+    port: 3000,
+    environment: 'development'
   }
 };
 
 /**
- * Helper function to get all routes for a specific app
+ * Helper function to get target port for API URLs only
  */
-export function getAppRoutes(appName) {
-  const app = GATEWAY_CONFIG.frontend[appName];
-  if (!app) return [];
-  
-  return [
-    ...app.routes,
-    ...(app.aliases || [])
-  ];
-}
-
-/**
- * Helper function to get target port for a URL
- */
-export function getTargetPort(url, referer = '') {
-  // Check API routes first
-  for (const [appName, config] of Object.entries(GATEWAY_CONFIG.api)) {
+export function getTargetPort(url) {
+  // Check API routes only
+  for (const [, config] of Object.entries(GATEWAY_CONFIG.api)) {
     for (const route of config.routes) {
       if (url.startsWith(route)) {
         return config.port;
@@ -185,61 +110,22 @@ export function getTargetPort(url, referer = '') {
     }
   }
 
-  // Check Vite resources with referer-based routing
-  const isViteResource = GATEWAY_CONFIG.vite.routes.some(route => url.startsWith(route));
-  if (isViteResource) {
-    // Determine target based on referer
-    for (const [appName, config] of Object.entries(GATEWAY_CONFIG.frontend)) {
-      const allRoutes = getAppRoutes(appName);
-      if (allRoutes.some(route => referer.includes(route))) {
-        return config.port;
-      }
-    }
-    // Fallback to FinClamp for Vite resources
-    return GATEWAY_CONFIG.frontend.finclamp.port;
-  }
-
-  // Check frontend routes
-  for (const [appName, config] of Object.entries(GATEWAY_CONFIG.frontend)) {
-    const allRoutes = getAppRoutes(appName);
-    for (const route of allRoutes) {
-      if (url.startsWith(route)) {
-        return config.port;
-      }
-    }
-  }
-
-  // Default fallback to FinClamp
-  return GATEWAY_CONFIG.frontend.finclamp.port;
+  // No API route found
+  return null;
 }
 
 /**
- * Helper function to get app name from URL
+ * Helper function to get API app name from URL
  */
-export function getAppName(url, referer = '') {
-  // Check Vite resources first
-  const isViteResource = GATEWAY_CONFIG.vite.routes.some(route => url.startsWith(route));
-  if (isViteResource) {
-    for (const [appName, config] of Object.entries(GATEWAY_CONFIG.frontend)) {
-      const allRoutes = getAppRoutes(appName);
-      if (allRoutes.some(route => referer.includes(route))) {
-        return appName;
-      }
-    }
-    return 'finclamp'; // fallback
-  }
-
-  // Check frontend routes
-  for (const [appName, config] of Object.entries(GATEWAY_CONFIG.frontend)) {
-    const allRoutes = getAppRoutes(appName);
-    for (const route of allRoutes) {
+export function getApiAppName(url) {
+  for (const [appName, config] of Object.entries(GATEWAY_CONFIG.api)) {
+    for (const route of config.routes) {
       if (url.startsWith(route)) {
         return appName;
       }
     }
   }
-
-  return 'finclamp'; // default
+  return null;
 }
 
 export default GATEWAY_CONFIG;
