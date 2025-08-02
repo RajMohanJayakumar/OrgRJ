@@ -297,7 +297,10 @@ export default function App() {
         'vendor-quotation': { mainTab: 'general', subTab: 'vendor-quotation' },
         'finance-quest': { mainTab: 'games', subTab: 'finance-quest' },
         'bubble-wrap': { mainTab: 'stress_buster', subTab: 'bubble-wrap' },
-        'breathing-exercise': { mainTab: 'stress_buster', subTab: 'breathing-exercise' }
+        'breathing-exercise': { mainTab: 'stress_buster', subTab: 'breathing-exercise' },
+        'color-therapy': { mainTab: 'stress_buster', subTab: 'color-therapy' },
+        'stress-squeezer': { mainTab: 'stress_buster', subTab: 'stress-squeezer' },
+        'mindful-doodling': { mainTab: 'stress_buster', subTab: 'mindful-doodling' }
       }
 
       if (calculatorNameMap[calculatorParam]) {
@@ -424,7 +427,9 @@ export default function App() {
       'nps': 'calculators', 'epf': 'calculators', 'gratuity': 'calculators',
       'real-estate': 'calculators', 'property-valuation': 'calculators', 'rent-vs-buy': 'calculators', 'property-tax': 'calculators',
       'compound-interest': 'calculators', 'simple-interest': 'calculators', 'inflation': 'calculators',
-      'finance-quest': 'games', 'bubble-wrap': 'stress-buster', 'breathing-exercise': 'stress-buster'
+      'finance-quest': 'games',
+      'bubble-wrap': 'stress-buster', 'breathing-exercise': 'stress-buster',
+      'color-therapy': 'stress-buster', 'stress-squeezer': 'stress-buster', 'mindful-doodling': 'stress-buster'
     }
 
     // Set the URL format to match new structure: /calculators?in=calculator-id or /games?in=finance-quest
