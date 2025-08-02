@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/",
-    "build:github": "vite build --base=/OrgRJ/",
+    "build:github": "vite build --base=/",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
