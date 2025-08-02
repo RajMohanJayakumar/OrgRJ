@@ -36,23 +36,23 @@ const PWALoader = ({ isVisible, onComplete }) => {
 
     const progressInterval = setInterval(() => {
       setProgress(prev => {
-        const newProgress = prev + Math.random() * 15 + 5
+        const newProgress = prev + Math.random() * 25 + 10 // Increased progress increment
         if (newProgress >= 100) {
           clearInterval(progressInterval)
-          setTimeout(() => onComplete?.(), 500)
+          setTimeout(() => onComplete?.(), 200) // Reduced completion delay
           return 100
         }
         return newProgress
       })
-    }, 300)
+    }, 150) // Reduced interval time from 300ms to 150ms
 
     const messageInterval = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % loadingMessages.length)
-    }, 800)
+    }, 400) // Reduced from 800ms to 400ms
 
     const iconInterval = setInterval(() => {
       setCurrentIcon(prev => (prev + 1) % financialIcons.length)
-    }, 600)
+    }, 300) // Reduced from 600ms to 300ms
 
     return () => {
       clearInterval(progressInterval)

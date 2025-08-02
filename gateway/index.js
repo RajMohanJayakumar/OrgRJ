@@ -1,268 +1,170 @@
 /**
- * Universal Gateway Server
+ * Ultra-Simple Gateway - FIXED FOR VITE
  * 
- * A single-port gateway that routes requests to:
- * - Static frontend builds
- * - Local backend modules  
- * - External services via proxy
+ * This gateway uses a single proxy with intelligent routing
+ * to avoid route conflicts and ensure Vite resources work correctly.
  */
 
 import express from 'express';
-import path from 'path';
-import fs from 'fs';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { fileURLToPath } from 'url';
-
-// ES module compatibility
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load configuration
-import config from './config.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware for logging requests
+// CORS middleware
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  next();
-});
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
-    timestamp: new Date().toISOString(),
-    gateway: 'universal-gateway',
-    routes: config.length
-  });
-});
-
-// Process each route configuration
-config.forEach(({ route, target, path: targetPath, port, host = 'localhost', pathRewrite, description }) => {
-  console.log(`Setting up route: ${route} -> ${target} (${description || 'No description'})`);
-
-  try {
-    if (target === 'static') {
-      const staticPath = path.resolve(__dirname, targetPath);
-      
-      // Check if static directory exists
-      if (!fs.existsSync(staticPath)) {
-        console.warn(`⚠️  Static path does not exist: ${staticPath}`);
-        console.warn(`   Route ${route} will return 404 until build is created`);
-        
-        // Create a placeholder handler
-        app.use(route, (req, res) => {
-          res.status(404).send(`
-            <html>
-              <head><title>Build Not Found</title></head>
-              <body>
-                <h1>Build Not Found</h1>
-                <p>The build directory for <strong>${route}</strong> does not exist yet.</p>
-                <p>Expected path: <code>${staticPath}</code></p>
-                <p>Please run the build command for this app first.</p>
-                <hr>
-                <small>Gateway: ${description || route}</small>
-              </body>
-            </html>
-          `);
-        });
-      } else {
-        // Serve static files with fallback to index.html for SPA routing
-        app.use(route, express.static(staticPath));
-        
-        // SPA fallback - serve index.html for unmatched routes within this path
-        if (route !== '/') {
-          app.get(`${route}/*`, (req, res) => {
-            const indexPath = path.join(staticPath, 'index.html');
-            if (fs.existsSync(indexPath)) {
-              res.sendFile(indexPath);
-            } else {
-              res.status(404).send('Index file not found');
-            }
-          });
-        }
-      }
-
-    } else if (target === 'local') {
-      const modulePath = path.resolve(__dirname, targetPath);
-      
-      // Check if module exists
-      if (!fs.existsSync(modulePath)) {
-        console.warn(`⚠️  Local module does not exist: ${modulePath}`);
-        
-        // Create a placeholder API
-        app.use(route, (req, res) => {
-          res.status(503).json({
-            error: 'Service Unavailable',
-            message: `Local module for ${route} not found`,
-            expectedPath: modulePath,
-            description: description || route
-          });
-        });
-      } else {
-        try {
-          const service = require(modulePath);
-          
-          if (typeof service === 'function') {
-            // Module exports a function that returns middleware/router
-            app.use(route, service());
-          } else if (service && typeof service.router === 'function') {
-            // Module exports an object with a router function
-            app.use(route, service.router());
-          } else if (service && service.default && typeof service.default === 'function') {
-            // ES module with default export
-            app.use(route, service.default());
-          } else {
-            console.error(`❌ Invalid service export for ${route}. Expected function or {router: function}`);
-            
-            app.use(route, (req, res) => {
-              res.status(500).json({
-                error: 'Invalid Service Configuration',
-                message: `Module at ${route} does not export a valid Express router`,
-                expectedExports: 'function() or {router: function()}'
-              });
-            });
-          }
-        } catch (error) {
-          console.error(`❌ Failed to load module for ${route}:`, error.message);
-          
-          app.use(route, (req, res) => {
-            res.status(500).json({
-              error: 'Module Load Error',
-              message: `Failed to load module for ${route}`,
-              details: error.message
-            });
-          });
-        }
-      }
-
-    } else if (target === 'proxy') {
-      const proxyOptions = {
-        target: `http://${host}:${port}`,
-        changeOrigin: true,
-        ws: true, // Enable WebSocket proxying for HMR
-        secure: false,
-        logLevel: 'debug',
-        onError: (err, req, res) => {
-          console.error(`Proxy error for ${route}:`, err.message);
-          if (res && !res.headersSent) {
-            res.status(502).json({
-              error: 'Bad Gateway',
-              message: `Failed to proxy request to ${host}:${port}`,
-              route: route,
-              url: req.url
-            });
-          }
-        },
-        onProxyReq: (proxyReq, req, res) => {
-          console.log(`Proxying ${req.method} ${req.url} -> ${host}:${port}`);
-        },
-        onProxyReqWs: (proxyReq, req, socket, options, head) => {
-          console.log(`Proxying WebSocket ${req.url} -> ${host}:${port}`);
-        },
-        // Handle Vite dev server specific routes
-        router: (req) => {
-          // For Vite special routes, always proxy to the dev server
-          if (req.url.startsWith('/@vite/') ||
-              req.url.startsWith('/@react-refresh') ||
-              req.url.startsWith('/src/') ||
-              req.url.startsWith('/node_modules/') ||
-              req.url.includes('.jsx') ||
-              req.url.includes('.tsx') ||
-              req.url.includes('.ts') ||
-              req.url.includes('?import') ||
-              req.url.includes('?t=')) {
-            return `http://${host}:${port}`;
-          }
-          return `http://${host}:${port}`;
-        }
-      };
-
-      // Add path rewriting if specified
-      if (pathRewrite) {
-        proxyOptions.pathRewrite = pathRewrite;
-      }
-
-      // Create the proxy middleware
-      const proxy = createProxyMiddleware(proxyOptions);
-
-      // For Vite dev servers, we need to handle special routes at the root level too
-      if (port >= 5173 && port <= 5180) { // Vite dev server port range
-        // Handle Vite special routes at root level
-        app.use('/@vite', createProxyMiddleware({
-          ...proxyOptions,
-          pathRewrite: undefined // Don't rewrite these paths
-        }));
-
-        app.use('/@react-refresh', createProxyMiddleware({
-          ...proxyOptions,
-          pathRewrite: undefined
-        }));
-
-        app.use('/src', createProxyMiddleware({
-          ...proxyOptions,
-          pathRewrite: undefined
-        }));
-
-        app.use('/node_modules', createProxyMiddleware({
-          ...proxyOptions,
-          pathRewrite: undefined
-        }));
-      }
-
-      app.use(route, proxy);
-
-    } else {
-      console.error(`❌ Unknown target type '${target}' for route ${route}`);
-    }
-
-  } catch (error) {
-    console.error(`❌ Failed to setup route ${route}:`, error.message);
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
   }
 });
 
-// Catch-all handler for unmapped routes
-app.use((req, res) => {
-  const availableRoutes = config.map(c => ({
-    route: c.route,
-    target: c.target,
-    description: c.description
-  }));
+// Request logging
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`${timestamp} - ${req.method} ${req.url}`);
+  next();
+});
 
-  res.status(404).json({
-    error: 'Route Not Found',
-    message: `No gateway configuration found for: ${req.path}`,
-    availableRoutes: availableRoutes,
-    suggestion: 'Check the gateway/config.js file to add this route'
+// Health check
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    gateway: 'ultra-simple-gateway'
   });
 });
 
-// Error handler
-app.use((error, req, res, next) => {
-  console.error('Gateway error:', error);
-  res.status(500).json({
-    error: 'Internal Server Error',
-    message: 'An unexpected error occurred in the gateway',
-    timestamp: new Date().toISOString()
-  });
+// Function to determine target port based on URL
+function getTargetPort(url, referer = '') {
+  // API routes
+  if (url.startsWith('/api/finclamp')) return 8001;
+  if (url.startsWith('/api/arcade')) return 8002;
+  if (url.startsWith('/api/engaged')) return 8003;
+  if (url.startsWith('/api/skips')) return 8004;
+  
+  // Frontend routes
+  if (url.startsWith('/arcade') || url.startsWith('/retro-games')) return 5174;
+  if (url.startsWith('/engaged') || url.startsWith('/wedding') || url.startsWith('/planning')) return 5175;
+  if (url.startsWith('/skips') || url.startsWith('/fitness') || url.startsWith('/tracker')) return 5176;
+  
+  // FinClamp routes (default)
+  if (url.startsWith('/finclamp') || 
+      url.startsWith('/finance') || 
+      url.startsWith('/calculator') || 
+      url.startsWith('/calculators') || 
+      url.startsWith('/games') ||
+      url.startsWith('/@vite') ||
+      url.startsWith('/@react-refresh') ||
+      url.startsWith('/src') ||
+      url.startsWith('/node_modules')) {
+    return 5173;
+  }
+  
+  // Check referer for Vite resources
+  if (referer.includes('/arcade')) return 5174;
+  if (referer.includes('/engaged')) return 5175;
+  if (referer.includes('/skips')) return 5176;
+  
+  // Default to FinClamp
+  return 5173;
+}
+
+// Single proxy middleware that handles ALL requests
+const universalProxy = createProxyMiddleware({
+  target: 'http://localhost:5173', // Default target
+  changeOrigin: true,
+  ws: true, // WebSocket support
+  secure: false,
+  router: (req) => {
+    const targetPort = getTargetPort(req.url, req.get('Referer') || '');
+    const target = `http://localhost:${targetPort}`;
+    console.log(`🔀 Routing: ${req.method} ${req.url} -> ${target}`);
+    return target;
+  },
+  onError: (err, req, res) => {
+    console.error(`❌ Proxy error for ${req.url}:`, err.message);
+    if (res && !res.headersSent) {
+      res.status(502).json({
+        error: 'Bad Gateway',
+        message: `Failed to proxy request`,
+        url: req.url
+      });
+    }
+  },
+  onProxyReq: (proxyReq, req) => {
+    console.log(`✅ Proxying: ${req.method} ${req.url} -> ${proxyReq.getHeader('host')}`);
+  }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log('\n🚀 Universal Gateway Server Started');
-  console.log(`📡 Server running on http://localhost:${PORT}`);
+// Root route - simple landing page
+app.get('/', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Ultra-Simple Gateway</title>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
+        .link { display: inline-block; margin: 10px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        .link:hover { background: #0056b3; }
+      </style>
+    </head>
+    <body>
+      <h1>🚀 Ultra-Simple Gateway</h1>
+      <p>Fixed for Vite development server compatibility</p>
+      
+      <div>
+        <a href="/calculators?currency=dollar&in=emi" class="link">FinClamp Calculators</a>
+        <a href="/games?in=finance-quest" class="link">FinClamp Games</a>
+        <a href="/arcade" class="link">Arcade</a>
+        <a href="/engaged" class="link">Engaged</a>
+        <a href="/skips" class="link">Skips</a>
+      </div>
+      
+      <div style="margin-top: 30px;">
+        <a href="/health" class="link">Health Check</a>
+      </div>
+    </body>
+    </html>
+  `);
+});
+
+// Apply universal proxy to all other routes
+app.use('/', universalProxy);
+
+// Start server
+const server = app.listen(PORT, () => {
+  console.log('\n🚀 Ultra-Simple Gateway Started');
+  console.log(`📡 Server: http://localhost:${PORT}`);
   console.log(`⚡ Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log('\n📋 Configured Routes:');
+  console.log('\n📋 Intelligent Routing:');
+  console.log('   /calculators, /games, /@vite/* -> localhost:5173 (FinClamp)');
+  console.log('   /arcade                        -> localhost:5174 (Arcade)');
+  console.log('   /engaged                       -> localhost:5175 (Engaged)');
+  console.log('   /skips                         -> localhost:5176 (Skips)');
+  console.log('   /api/*                         -> localhost:800x (APIs)');
+  console.log('\n🔍 Health check: http://localhost:' + PORT + '/health');
+  console.log('🔌 WebSocket support: Enabled for HMR');
+  console.log('───────────────────────────────────────────────────\n');
+});
+
+// WebSocket support for Vite HMR
+server.on('upgrade', (request, socket, head) => {
+  const targetPort = getTargetPort(request.url, request.headers.referer);
+  console.log(`🔌 WebSocket upgrade: ${request.url} -> localhost:${targetPort}`);
   
-  config.forEach(({ route, target, description }) => {
-    const targetInfo = target === 'static' ? '📁 Static' : 
-                      target === 'local' ? '🔧 Local' : 
-                      target === 'proxy' ? '🔗 Proxy' : '❓ Unknown';
-    console.log(`   ${route.padEnd(20)} -> ${targetInfo} ${description ? `(${description})` : ''}`);
+  const wsProxy = createProxyMiddleware({
+    target: `http://localhost:${targetPort}`,
+    changeOrigin: true,
+    ws: true,
+    onError: (err) => console.error(`❌ WebSocket error:`, err.message)
   });
   
-  console.log(`\n🔍 Health check: http://localhost:${PORT}/health`);
-  console.log('───────────────────────────────────────────────────\n');
+  wsProxy.upgrade(request, socket, head);
 });

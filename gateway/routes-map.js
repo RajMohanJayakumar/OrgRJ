@@ -1,16 +1,16 @@
 /**
  * Universal Gateway Routes Map
- * 
- * This file defines the complete routing structure for the monorepo.
- * It maps clean URLs to their respective frontend and backend services.
+ *
+ * Simplified routing configuration for perfect port redirection.
+ * Each route maps directly to its target port without complex logic.
  */
 
 // Environment-based configuration
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-// Frontend Apps Routing Map
+// Frontend Apps Routing Map - SIMPLIFIED
 export const frontendRoutes = {
-  // Financial Calculator Suite
+  // FinClamp - Financial Calculator Suite (Port 5173)
   finclamp: {
     route: '/finclamp',
     name: 'FinClamp',
@@ -18,23 +18,40 @@ export const frontendRoutes = {
     icon: '💰',
     devPort: 5173,
     buildPath: '../apps/finclamp/dist',
-    basePath: '/', // Clean base path for development
-    aliases: ['/finance', '/calculator'] // Alternative URLs
+    aliases: ['/finance', '/calculator']
   },
 
-  // Arcade Games Collection  
+  // Direct FinClamp Routes - These are the ACTUAL working routes
+  calculators: {
+    route: '/calculators',
+    name: 'FinClamp Calculators',
+    description: 'Direct access to financial calculators',
+    icon: '🧮',
+    devPort: 5173, // Same as FinClamp
+    buildPath: '../apps/finclamp/dist'
+  },
+
+  games: {
+    route: '/games',
+    name: 'FinClamp Games',
+    description: 'Direct access to finance games',
+    icon: '🎮',
+    devPort: 5173, // Same as FinClamp
+    buildPath: '../apps/finclamp/dist'
+  },
+
+  // Arcade Games Collection (Port 5174)
   arcade: {
     route: '/arcade',
     name: 'Arcade Games',
     description: 'Retro Game Collection',
-    icon: '🎮',
+    icon: '🕹️',
     devPort: 5174,
     buildPath: '../apps/arcade-games/dist',
-    basePath: '/',
-    aliases: ['/games']
+    aliases: ['/retro-games']
   },
 
-  // Wedding Planning Platform
+  // Wedding Planning Platform (Port 5175)
   engaged: {
     route: '/engaged',
     name: 'Engaged',
@@ -42,11 +59,10 @@ export const frontendRoutes = {
     icon: '💍',
     devPort: 5175,
     buildPath: '../apps/engaged/dist',
-    basePath: '/',
     aliases: ['/wedding', '/planning']
   },
 
-  // Skip Rope Tracking
+  // Skip Rope Tracking (Port 5176)
   skips: {
     route: '/skips',
     name: 'Skips Tracker',
@@ -54,7 +70,6 @@ export const frontendRoutes = {
     icon: '⏭️',
     devPort: 5176,
     buildPath: '../apps/skips/dist',
-    basePath: '/',
     aliases: ['/fitness', '/tracker']
   }
 };
@@ -121,11 +136,11 @@ export const apiRoutes = {
   }
 };
 
-// Generate gateway configuration from routes map
+// Generate gateway configuration from routes map - SIMPLIFIED
 export function generateGatewayConfig() {
   const config = [];
 
-  // Add frontend routes
+  // Add frontend routes - DIRECT MAPPING
   Object.values(frontendRoutes).forEach(app => {
     // Main route
     config.push({
@@ -137,7 +152,7 @@ export function generateGatewayConfig() {
       description: `${app.name} - ${app.description} (${isDevelopment ? 'Dev Server' : 'Static Build'})`
     });
 
-    // Add aliases
+    // Add aliases - DIRECT MAPPING
     if (app.aliases) {
       app.aliases.forEach(alias => {
         config.push({

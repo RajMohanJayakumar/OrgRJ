@@ -384,11 +384,11 @@ export default function App() {
     // Hide loader after app is ready
     const timer = setTimeout(() => {
       setShowPWALoader(false)
-    }, 3000) // Show loader for 3 seconds minimum
+    }, 1500) // Show loader for 1.5 seconds minimum (reduced from 3 seconds)
 
     // Hide loader when window is fully loaded
     const handleLoad = () => {
-      setTimeout(() => setShowPWALoader(false), 1000)
+      setTimeout(() => setShowPWALoader(false), 500) // Reduced from 1 second to 500ms
     }
 
     if (document.readyState === 'complete') {
