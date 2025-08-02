@@ -224,12 +224,14 @@ export default function App() {
       const urlParams = new URLSearchParams(window.location.search)
       const pathname = window.location.pathname
 
-    // First, check for new main menu format: /games?in=finance-quest or /calculators?in=emi
+    // First, check for new main menu format: /games?in=finance-quest or /calculators?in=emi or /stress-buster?in=bubble-wrap
     const inParam = urlParams.get('in')
     if (pathname && inParam) {
       const pathSegment = pathname.replace('/', '')
       if (pathSegment === 'games') {
         return { mainTab: 'games', subTab: inParam }
+      } else if (pathSegment === 'stress-buster') {
+        return { mainTab: 'stress_buster', subTab: inParam }
       } else if (pathSegment === 'calculators') {
         // Map calculator to appropriate category
         const calculatorCategoryMap = {
@@ -242,7 +244,8 @@ export default function App() {
           'real-estate': 'real_estate', 'property-valuation': 'real_estate', 'rent-vs-buy': 'real_estate', 'property-tax': 'real_estate',
           'bill-split': 'lifestyle', 'tip': 'lifestyle', 'subscription': 'lifestyle', 'daily-interest': 'lifestyle', 'monthly-expense': 'lifestyle', 'daily-spending': 'lifestyle', 'grocery-budget': 'lifestyle', 'commute-cost': 'lifestyle', 'wfh-savings': 'lifestyle', 'habit-cost': 'lifestyle',
           'discount': 'general', 'fuel-cost': 'general', 'compound-interest': 'general', 'simple-interest': 'general', 'inflation': 'general', 'vendor-quotation': 'general',
-          'finance-quest': 'games', 'bubble-wrap': 'stress_buster', 'breathing-exercise': 'stress_buster'
+          'finance-quest': 'games', 'bubble-wrap': 'stress_buster', 'breathing-exercise': 'stress_buster',
+          'color-therapy': 'stress_buster', 'stress-squeezer': 'stress_buster', 'mindful-doodling': 'stress_buster'
         }
         const category = calculatorCategoryMap[inParam] || 'general'
         return { mainTab: category, subTab: inParam }
