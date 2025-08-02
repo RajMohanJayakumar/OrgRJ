@@ -45,9 +45,14 @@ async function buildSingleApp(appName = null, environment = 'production') {
       throw new Error(`Source directory not found: ${sourceDir}`);
     }
     
-    // Create output directory
-    const outputDir = path.resolve(rootDir, 'dist');
-    await fs.mkdir(outputDir, { recursive: true });
+    // Create output directory (root for FinClamp, dist for others)
+    const outputDir = config.githubPages.deployToRoot
+      ? rootDir
+      : path.resolve(rootDir, 'dist');
+
+    if (!config.githubPages.deployToRoot) {
+      await fs.mkdir(outputDir, { recursive: true });
+    }
     
     // Set environment variables
     const envVars = {
@@ -102,11 +107,21 @@ async function buildSingleApp(appName = null, environment = 'production') {
     // Copy built files to output directory
     const builtFilesDir = path.join(sourceDir, 'dist');
     console.log(`📁 Copying built files from ${builtFilesDir} to ${outputDir}`);
-    
-    // Remove existing output directory
-    await fs.rm(outputDir, { recursive: true, force: true });
-    await fs.mkdir(outputDir, { recursive: true });
-    
+
+    if (config.githubPages.deployToRoot) {
+      // For root deployment, clean only web assets, preserve source code
+      console.log(`🧹 Cleaning existing web assets for root deployment...`);
+      const webAssets = ['index.html', 'assets', 'vite.svg', '404.html', '.nojekyll', 'CNAME'];
+      for (const asset of webAssets) {
+        const assetPath = path.join(outputDir, asset);
+        await fs.rm(assetPath, { recursive: true, force: true });
+      }
+    } else {
+      // For subdirectory deployment, clean entire output directory
+      await fs.rm(outputDir, { recursive: true, force: true });
+      await fs.mkdir(outputDir, { recursive: true });
+    }
+
     // Copy all files from build output
     await copyDirectory(builtFilesDir, outputDir);
     

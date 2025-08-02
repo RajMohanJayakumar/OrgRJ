@@ -45,6 +45,8 @@
     "build:single:arcade": "APP_NAME=arcade node scripts/build-single-app.js",
     "build:single:engaged": "APP_NAME=engaged node scripts/build-single-app.js",
     "build:single:skips": "APP_NAME=skips node scripts/build-single-app.js",
+    "deploy:finclamp:root": "node scripts/deploy-finclamp-root.js production",
+    "deploy:finclamp:root:staging": "node scripts/deploy-finclamp-root.js staging",
     "test": "npm run test --workspaces --if-present",
     "test:all-no-finclamp": "npm run test:arcade && npm run test:engaged && npm run test:skips",
     "test:finclamp": "npm run test --workspace=apps/finclamp",

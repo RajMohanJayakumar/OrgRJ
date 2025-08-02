@@ -147,7 +147,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./dist"
+          # For FinClamp: upload from root, for others: upload from dist
+          path: ${{ steps.app-config.outputs.app_name == 'finclamp' && '.' || './dist' }}
 
       - name: Deploy to GitHub Pages
         id: deployment

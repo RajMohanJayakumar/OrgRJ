@@ -23,13 +23,14 @@ export const SINGLE_APP_BUILD_CONFIG = {
       description: 'Financial calculators and planning tools',
       sourceDir: 'apps/finclamp',
       buildCommand: 'npm run build',
-      outputPath: 'dist',
+      outputPath: '.', // Deploy to root
       routes: ['/calculators', '/calculator', '/finclamp', '/finance', '/games'],
       githubPages: {
-        subdirectory: 'finclamp',
+        subdirectory: '', // Root deployment
         customDomain: false,
         spa: true,
-        baseUrl: '/OrgRJ'
+        baseUrl: '/OrgRJ', // GitHub Pages base URL
+        deployToRoot: true // Special flag for root deployment
       },
       build: {
         framework: 'vite',
