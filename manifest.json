@@ -1,0 +1,88 @@
+{
+  "name": "FinClamp - Financial Intelligence Platform",
+  "short_name": "FinClamp",
+  "description": "Professional financial calculators with mobile-responsive design, interactive charts, and PDF export capabilities",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "categories": [
+    "finance",
+    "business",
+    "productivity"
+  ],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "./android-chrome-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./android-chrome-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./android-chrome-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./android-chrome-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./android-chrome-192x192-monochrome.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    },
+    {
+      "src": "./android-chrome-512x512-monochrome.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    },
+    {
+      "src": "./favicon-monochrome.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "SIP Calculator",
+      "short_name": "SIP",
+      "description": "Calculate Systematic Investment Plan returns",
+      "url": "./calculators?in=sip"
+    },
+    {
+      "name": "EMI Calculator",
+      "short_name": "EMI",
+      "description": "Calculate loan EMI and interest",
+      "url": "./calculators?in=emi"
+    },
+    {
+      "name": "Bubble Wrap",
+      "short_name": "Bubbles",
+      "description": "Pop bubbles to relax and relieve stress",
+      "url": "./stress-buster?in=bubble-wrap"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Monochrome gradient for the top arc -->
+    <linearGradient id="topGradientMono" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6B7280;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B5563;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Monochrome gradient for the bottom arc -->
+    <linearGradient id="bottomGradientMono" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1F2937;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background for PWA compatibility -->
+  <rect width="32" height="32" fill="white" rx="4"/>
+
+  <!-- Top arc -->
+  <path d="M 6 16 A 10 10 0 0 1 26 16"
+        fill="none"
+        stroke="url(#topGradientMono)"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+  <!-- Bottom arc -->
+  <path d="M 26 16 A 10 10 0 0 1 6 16"
+        fill="none"
+        stroke="url(#bottomGradientMono)"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+  <!-- Center dot for favicon clarity -->
+  <circle cx="16" cy="16" r="2" fill="#6B7280"/>
+</svg>

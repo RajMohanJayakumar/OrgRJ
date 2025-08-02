@@ -1,0 +1,32 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for the top arc -->
+    <linearGradient id="topGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4ADE80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gradient for the bottom arc -->
+    <linearGradient id="bottomGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Top arc -->
+  <path d="M 8 20 A 12 12 0 0 1 32 20" 
+        fill="none" 
+        stroke="url(#topGradient)" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+  
+  <!-- Bottom arc -->
+  <path d="M 32 20 A 12 12 0 0 1 8 20" 
+        fill="none" 
+        stroke="url(#bottomGradient)" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+  
+  <!-- Center dot for clarity -->
+  <circle cx="20" cy="20" r="2" fill="#8B5CF6"/>
+</svg>

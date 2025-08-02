@@ -1,0 +1,12 @@
+# Netlify redirects for SPA routing
+# All routes should serve the index.html file for client-side routing
+
+# Specific calculator routes
+/calculators/* /index.html 200
+/games/* /index.html 200
+
+# Legacy routes support
+/calculator/* /index.html 200
+
+# Catch-all for any other routes
+/* /index.html 200

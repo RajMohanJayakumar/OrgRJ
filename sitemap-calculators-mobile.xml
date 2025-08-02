@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://finclamp.com/calculator?in=rd</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <mobile:mobile/>
+    <image:image>
+      <image:loc>https://finclamp.com/images/calculators/rd-mobile.jpg</image:loc>
+      <image:title>RD Calculator - Recurring Deposit Calculator | Mobile Responsive</image:title>
+      <image:caption>Calculate recurring deposit maturity amount with mobile-optimized calculator. Interactive growth charts and PDF export.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://finclamp.com/calculator?in=ppf</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <mobile:mobile/>
+    <image:image>
+      <image:loc>https://finclamp.com/images/calculators/ppf-mobile.jpg</image:loc>
+      <image:title>PPF Calculator - Public Provident Fund Calculator | Mobile Optimized</image:title>
+      <image:caption>Calculate PPF maturity amount and returns with mobile-friendly interface. Interactive charts and professional PDF reports.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://finclamp.com/calculator?in=fd</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <mobile:mobile/>
+    <image:image>
+      <image:loc>https://finclamp.com/images/calculators/fd-mobile.jpg</image:loc>
+      <image:title>FD Calculator - Fixed Deposit Calculator | Mobile Responsive</image:title>
+      <image:caption>Calculate fixed deposit maturity amount with mobile-optimized calculator. Interactive charts and downloadable PDF reports.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://finclamp.com/calculator?in=dailyspending</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <mobile:mobile/>
+    <image:image>
+      <image:loc>https://finclamp.com/images/calculators/dailyspending-mobile.jpg</image:loc>
+      <image:title>Daily Spending Calculator - Track Daily Expenses | Mobile App</image:title>
+      <image:caption>Track daily spending with mobile-optimized calculator. PDF reports and expense analysis for better budget management.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://finclamp.com/calculator?in=commutecost</loc>
+    <lastmod>2025-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <mobile:mobile/>
+    <image:image>
+      <image:loc>https://finclamp.com/images/calculators/commutecost-mobile.jpg</image:loc>
+      <image:title>Commute Cost Calculator - Travel Expense Calculator | Mobile Friendly</image:title>
+      <image:caption>Calculate daily commute costs with mobile-responsive interface. PDF reports for expense tracking and planning.</image:caption>
+    </image:image>
+  </url>
+</urlset>
