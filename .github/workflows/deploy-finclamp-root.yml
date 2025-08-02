@@ -1,21 +1,21 @@
-name: Deploy FinClamp to Root (GitHub Pages)
+name: Deploy FinClamp to GitHub Pages
 
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment'
+        description: "Environment"
         required: true
-        default: 'production'
+        default: "production"
         type: choice
         options:
           - production
           - staging
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'apps/finclamp/**'
-      - 'scripts/deploy-finclamp-root.js'
+      - "apps/finclamp/**"
+      - "scripts/deploy-finclamp-root.js"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -29,8 +29,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build and deploy FinClamp to root
-  deploy-finclamp-root:
+  # Build and deploy FinClamp to GitHub Pages
+  deploy-finclamp-github-pages:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -47,6 +47,9 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            apps/finclamp/package-lock.json
 
       - name: Determine environment
         id: env-config
@@ -56,22 +59,26 @@ jobs:
           else
             ENVIRONMENT="production"
           fi
-          
+
           echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
           echo "Deploying FinClamp to root (environment: $ENVIRONMENT)"
 
       - name: Install dependencies
         run: |
+          # Clean npm cache to avoid any issues
+          npm cache clean --force
+          # Install root dependencies
           npm ci
+          # Install finclamp dependencies specifically
           cd apps/finclamp
           npm ci
 
-      - name: Deploy FinClamp to Root
+      - name: Deploy FinClamp for GitHub Pages
         env:
           NODE_ENV: ${{ steps.env-config.outputs.environment }}
         run: |
-          echo "Deploying FinClamp to repository root"
-          npm run deploy:finclamp:root
+          echo "Deploying FinClamp for GitHub Pages with correct base path"
+          npm run deploy:github-pages
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -80,7 +87,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload from repository root (where FinClamp was deployed)
-          path: '.'
+          path: "."
           # Exclude source code and only include built assets
           exclude: |
             .git/
@@ -102,10 +109,10 @@ jobs:
 
       - name: Build Summary
         run: |
-          echo "## 🚀 FinClamp Root Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **App**: FinClamp (deployed to root)" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 FinClamp GitHub Pages Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **App**: FinClamp (deployed to GitHub Pages)" >> $GITHUB_STEP_SUMMARY
           echo "- **Environment**: ${{ steps.env-config.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
           echo "- **URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Deployment Type**: Root (FinClamp serves from /)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment Type**: GitHub Pages (FinClamp serves from /OrgRJ/)" >> $GITHUB_STEP_SUMMARY
